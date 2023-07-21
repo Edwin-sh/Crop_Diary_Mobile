@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
@@ -19,15 +20,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
+import androidx.navigation.NavHostController
 import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.WindowOrientation
 import com.myapps.cropdiarymobile.core.WindowSize
 import com.myapps.cropdiarymobile.ui.components.CircularProgressComponent
+import com.myapps.cropdiarymobile.ui.navigation.Destinations
 import com.myapps.cropdiarymobile.ui.theme.SecondAppTypography
 import com.myapps.cropdiarymobile.ui.theme.color.Error
+import kotlinx.coroutines.delay
 
 @Composable
-fun SplashViewScreen(windowSize: WindowSize) {
+fun SplashViewScreen(windowSize: WindowSize, navController: NavHostController) {
+    LaunchedEffect(key1 = true){
+        delay(5000)
+        navController.popBackStack()
+        navController.navigate(Destinations.OnBoardingScreen.route)
+    }
     val orientation =
         if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) WindowOrientation.Portrait else WindowOrientation.Landscape
     Box(
@@ -222,4 +231,7 @@ private fun ProgressIndicator(windowSize: WindowSize) {
     )
 }
 
+private fun ContinueScreen(){
+
+}
 

@@ -1,11 +1,40 @@
-package com.myapps.cropdiarymobile.ui.theme
+package com.myapps.cropdiarymobile.ui.theme.color
 
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
-
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+
+val Black = Color(0xFFFFFFFF)
+val White = Color(0xFF000000)
+val Error = Color(0xFFB00020)
+val BlackHighEmphasis = Color(0xDE000000)
+val BlackMediumEmphasis = Color(0x99000000)
+val BlackDisabled = Color(0x61000000)
+val WhiteHighEmphasis = Color(0xFFFFFFFF)
+val WhiteMediumEmphasis = Color(0xBDFFFFFF)
+val WhiteDisabled = Color(0x61FFFFFF)
+val Primary900 = Color(0xFF23036A)
+val Primary800 = Color(0xFF30009C)
+val Primary700 = Color(0xFF3700B3)
+val Primary600 = Color(0xFF5600E8)
+val Primary500 = Color(0xFF6200EE)
+val Primary400 = Color(0xFF7F39FB)
+val Primary300 = Color(0xFF985EFF)
+val Primary200 = Color(0xFFBB86FC)
+val Primary100 = Color(0xFFDBB2FF)
+val Primary50 = Color(0xFFF2E7FE)
+val Secondary900 = Color(0xFF005457)
+val Secondary800 = Color(0xFF017374)
+val Secondary700 = Color(0xFF018786)
+val Secondary600 = Color(0xFF019592)
+val Secondary500 = Color(0xFF01A299)
+val Secondary400 = Color(0xFF00B3A6)
+val Secondary300 = Color(0xFF00B3A6)
+val Secondary200 = Color(0xFF03DAC5)
+val Secondary100 = Color(0xFF70EFDE)
+val Secondary50 = Color(0xFFC8FFF4)

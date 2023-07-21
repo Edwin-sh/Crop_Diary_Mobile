@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Crop Diary Mobile</string>
+    <string name="app_name">Crop Diary</string>
+    <string name="slogan">Control your crops like an expert with CropDiary: Your ally in farm accounting</string>
+    <string name="error">Error</string>
+    <string name="accept">Accept</string>
+    <string name="succes">Succes</string>
+    <string name="you_dont_have_an_internet_connection">You don\'t have an internet connection</string>
 </resources>

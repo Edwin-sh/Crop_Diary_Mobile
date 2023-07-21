@@ -9,7 +9,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import com.myapps.cropdiarymobile.core.rememberWindowSize
+import com.myapps.cropdiarymobile.ui.navigation.AppNavigation
+import com.myapps.cropdiarymobile.ui.screens.SplashViewScreen
 import com.myapps.cropdiarymobile.ui.theme.CropDiaryMobileTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,12 +21,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CropDiaryMobileTheme {
+                val window = rememberWindowSize()
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    AppNavigation(windowSize = window)
                 }
             }
         }
@@ -37,10 +42,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = Devices.DESKTOP, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     CropDiaryMobileTheme {
-        Greeting("Android")
+        val window = rememberWindowSize()
+        AppNavigation(windowSize = window)
     }
 }

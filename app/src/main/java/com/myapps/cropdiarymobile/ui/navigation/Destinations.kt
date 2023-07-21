@@ -1,0 +1,8 @@
+package com.myapps.cropdiarymobile.ui.navigation
+
+sealed class Destinations(
+    val route: String
+) {
+    object SplashScreen: Destinations("splashScreen")
+    object OnBoardingScreen: Destinations("onBoardingScreen")
+}

@@ -14,17 +14,30 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.myapps.cropdiarymobile.ui.theme.color.*
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Primary900,
+    secondary = Secondary900,
+    tertiary = Pink80,
+    background = White,
+    onBackground = BlackHighEmphasis,
+    onSurface = BlackHighEmphasis,
+    onPrimary = WhiteHighEmphasis,
+    onSecondary = WhiteHighEmphasis,
+    error = Error
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = Primary500,
+    secondary = Secondary500,
+    tertiary = Pink40,
+    background = Black,
+    onBackground = WhiteHighEmphasis,
+    onSurface = WhiteHighEmphasis,
+    onPrimary = BlackHighEmphasis,
+    onSecondary = BlackHighEmphasis,
+    error = Error
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -64,7 +77,7 @@ fun CropDiaryMobileTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = AppTypography,
         content = content
     )
 }

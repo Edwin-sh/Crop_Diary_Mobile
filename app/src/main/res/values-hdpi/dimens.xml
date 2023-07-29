@@ -2,7 +2,7 @@
     <dimen name="fab_margin">48dp</dimen>
     <dimen name="dp_1">6dp</dimen>
     <dimen name="dp_2">12dp</dimen>
-    <dimen name="dp_3">18dp</dimen>
+    <dimen name="screen_margin">18dp</dimen>
     <dimen name="dp_4">24dp</dimen>
     <dimen name="dp_5">30dp</dimen>
     <dimen name="dp_6">36dp</dimen>

@@ -67,22 +67,22 @@ val AppTypography = Typography(
     ),
     titleLarge = TextStyle(
         fontFamily = Roboto,
-        fontWeight = FontWeight.Normal,
-        fontStyle = FontStyle.Italic,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
         lineHeight = 28.sp,
         fontSize = 22.sp
     ),
     titleMedium = TextStyle(
         fontFamily = Roboto,
-        fontWeight = FontWeight.Normal,
-        fontStyle = FontStyle.Italic,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
         lineHeight = 24.sp,
         fontSize = 16.sp
     ),
     titleSmall = TextStyle(
         fontFamily = Roboto,
-        fontWeight = FontWeight.Normal,
-        fontStyle = FontStyle.Italic,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
         lineHeight = 20.sp,
         fontSize = 14.sp
     ),

@@ -19,25 +19,31 @@ import com.myapps.cropdiarymobile.ui.theme.color.*
 private val DarkColorScheme = darkColorScheme(
     primary = Primary900,
     secondary = Secondary900,
-    tertiary = Pink80,
-    background = White,
-    onBackground = BlackHighEmphasis,
-    onSurface = BlackHighEmphasis,
+    inversePrimary = Secondary300,
+    tertiary = Primary500,
+    background = Black,
+    onBackground = WhiteHighEmphasis,
+    onSurface = WhiteHighEmphasis,
     onPrimary = WhiteHighEmphasis,
     onSecondary = WhiteHighEmphasis,
-    error = Error
+    error = Error,
+    outline = Primary300,
+    outlineVariant = Secondary100
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Primary500,
     secondary = Secondary500,
-    tertiary = Pink40,
-    background = Black,
-    onBackground = WhiteHighEmphasis,
-    onSurface = WhiteHighEmphasis,
+    inversePrimary = Secondary500,
+    tertiary = Secondary900,
+    background = White,
+    onBackground = BlackHighEmphasis,
+    onSurface = BlackHighEmphasis,
     onPrimary = BlackHighEmphasis,
     onSecondary = BlackHighEmphasis,
-    error = Error
+    error = Error,
+    outline = Primary500,
+    outlineVariant = Secondary500
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -78,6 +84,7 @@ fun CropDiaryMobileTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = AppTypography,
-        content = content
+        content = content,
+        shapes = Shapes
     )
 }

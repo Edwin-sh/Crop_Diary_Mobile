@@ -1,5 +1,6 @@
 package com.myapps.cropdiarymobile.core
 
+import android.content.res.Configuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +32,11 @@ fun rememberWindowSize(): WindowSize {
     )
 }
 
+@Composable
+fun getWindowOrientation():WindowOrientation{
+    return if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE) WindowOrientation.Landscape else WindowOrientation.Portrait
+}
+
 fun getScreenWidth(width: Int): WindowType = when {
     width < 600 -> WindowType.Compact
     width < 840 -> WindowType.Medium
@@ -42,3 +48,4 @@ fun getScreenHeight(height: Int): WindowType = when {
     height < 900 -> WindowType.Medium
     else -> WindowType.Expanded
 }
+

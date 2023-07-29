@@ -3,22 +3,21 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.myapps.cropdiarymobile.core.WindowOrientation
+import com.myapps.cropdiarymobile.ui.components.WindowGrid
 import com.myapps.cropdiarymobile.ui.theme.color.Error
 
 @Composable
 internal fun ProgressIndicator(
     orientation: WindowOrientation,
-    size: Dp
+    grid: WindowGrid,
+    modifier: Modifier = Modifier
 ) {
-    val weight = if (orientation == WindowOrientation.Landscape) 0.5f else 1f
+    val size = if (orientation == WindowOrientation.Portrait) grid.width(1.5) else grid.height(1.5)
     CircularProgressIndicator(
-        modifier = Modifier
-            .size(size * weight)
-            .layoutId("progressIndicator"),
+        modifier = modifier
+            .size(size),
         color = Error,
-        strokeWidth = 4.dp
+        strokeWidth = grid.minimumSpace
     )
 }

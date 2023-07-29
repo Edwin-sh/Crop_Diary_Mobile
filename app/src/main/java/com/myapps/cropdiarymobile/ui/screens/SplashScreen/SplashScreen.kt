@@ -3,29 +3,28 @@ package com.myapps.cropdiarymobile.ui.screens.splashScreen
 import ProgressIndicator
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.WindowOrientation
+import com.myapps.cropdiarymobile.ui.components.getWindowGrid
 import com.myapps.cropdiarymobile.ui.navigation.Destinations
+import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashViewScreen(navController: NavHostController) {
+    val grid = getWindowGrid()
     LaunchedEffect(key1 = true) {
         delay(3000)
         navController.popBackStack()
@@ -41,31 +40,41 @@ fun SplashViewScreen(navController: NavHostController) {
             painter = painterResource(id = R.drawable.bkg_splash_view),
             modifier = Modifier.fillMaxSize()
         )
-        ConstraintLayoutSplashScreen(windowOrientation = windowOrientation) {
+        ConstraintLayoutSplashScreen(
+            windowOrientation = windowOrientation,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(grid.margin)
+        ) {
             Logo(
                 orientation = windowOrientation,
+                grid = grid,
                 modifier = Modifier
-                    .fillMaxWidth(0.833f)
                     .layoutId("logo")
             )
             Slogan(
                 orientation = windowOrientation,
+                grid = grid,
                 modifier = Modifier
                     .layoutId("slogan")
             )
             ProgressIndicator(
                 orientation = windowOrientation,
-                size = maxWidth * 0.15f
+                grid = grid,
+                modifier = Modifier
+                    .layoutId("progressIndicator")
             )
         }
 
     }
 }
 
-@Preview
+@Preview(device = Devices.PIXEL_2)
 @Composable
 private fun SplashScreenPreview() {
-    SplashViewScreen(navController = rememberNavController())
+    CropDiaryAppTheme {
+        SplashViewScreen(navController = rememberNavController())
+    }
 }
 
 

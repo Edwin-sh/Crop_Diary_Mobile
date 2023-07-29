@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_page_one">¡Welcome to CropDiary, your digital companion for farm accounting!</string>
+    <string name="title_page_two">Register and manage your crops easily with CropDiary</string>
+    <string name="title_page_three">Simplify the management of your laborers and agricultural tasks with CropDiary</string>
+    <string name="title_page_four">Take complete control of your farm finances with CropDiary</string>
+    <string name="description_page_two">Keep track of your crops by recording important information that will allow you to make more informed decisions to maximize your productivity and optimize your resources</string>
+    <string name="description_page_three">With CropDiary, you can easily record and manage your blueprint information. Maintain efficient control to keep your farm operation running smoothly</string>
+    <string name="description_page_four">CropDiary gives you tools to manage your expenses, income and transactions related to your crops and agricultural operations. Record your sales, customers, and accounts to keep a complete financial record</string>
+    <string name="description_page_one">With CropDiary, you can keep an efficient control of your agricultural activities. Sign up for the app to start optimizing your operations and simplifying your farm management</string>
+</resources>

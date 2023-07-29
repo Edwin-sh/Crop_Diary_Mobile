@@ -16,6 +16,8 @@ data class WindowGrid(
 ) {
     fun width(columns: Double): Dp = ((columnWidth.value * columns) + (minimumSpace.value * (columns - 1))).dp
     fun height(rows: Double): Dp = ((rowHeight.value * rows) + (rowHeight.value * (rows - 1))).dp
+    fun width(columns: Int): Dp = ((columnWidth * columns) + (minimumSpace * (columns - 1)))
+    fun height(rows: Int): Dp = ((rowHeight * rows) + (rowHeight * (rows - 1)))
 }
 
 

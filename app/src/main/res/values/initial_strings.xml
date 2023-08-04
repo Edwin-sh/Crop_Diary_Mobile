@@ -8,4 +8,5 @@
     <string name="description_page_three">With CropDiary, you can easily record and manage your blueprint information. Maintain efficient control to keep your farm operation running smoothly</string>
     <string name="description_page_four">CropDiary gives you tools to manage your expenses, income and transactions related to your crops and agricultural operations. Record your sales, customers, and accounts to keep a complete financial record</string>
     <string name="description_page_one">With CropDiary, you can keep an efficient control of your agricultural activities. Sign up for the app to start optimizing your operations and simplifying your farm management</string>
+    <string name="skip">Skip</string>
 </resources>

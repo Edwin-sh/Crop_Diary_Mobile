@@ -8,4 +8,5 @@
     <string name="description_page_two">Mantén un seguimiento detallado de tus cultivos al registrar información importante, como el tipo de cultivo, la fecha de siembra, las variedades utilizadas y la ubicación. Esta información te permitirá tomar decisiones más informadas para maximizar tu productividad y optimizar tus recursos agrícolas</string>
     <string name="description_page_three">Con CropDiary, podrás registrar y administrar fácilmente la información de tus obreros o trabajadores agrícolas. Mantén un control eficiente para mantener tu operación agrícola en marcha sin contratiempos</string>
     <string name="description_page_four">CropDiary te brinda herramientas para gestionar tus gastos, ingresos y transacciones relacionadas con tus cultivos y operaciones agrícolas. Registra tus ventas, clientes y cuentas para mantener un registro financiero completo</string>
+    <string name="skip">Omitir</string>
 </resources>

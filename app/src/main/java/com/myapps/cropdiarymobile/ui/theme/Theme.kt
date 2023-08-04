@@ -27,8 +27,8 @@ private val DarkColorScheme = darkColorScheme(
     onPrimary = WhiteHighEmphasis,
     onSecondary = WhiteHighEmphasis,
     error = Error,
-    outline = Primary300,
-    outlineVariant = Secondary100
+    outline = Primary500,
+    outlineVariant = Secondary300
 )
 
 private val LightColorScheme = lightColorScheme(

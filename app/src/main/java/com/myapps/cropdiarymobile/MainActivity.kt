@@ -11,38 +11,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.myapps.cropdiarymobile.core.rememberWindowSize
 import com.myapps.cropdiarymobile.ui.navigation.AppNavigation
-import com.myapps.cropdiarymobile.ui.screens.SplashViewScreen
+import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import com.myapps.cropdiarymobile.ui.theme.CropDiaryMobileTheme
 
+@ExperimentalPagerApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CropDiaryMobileTheme {
+            CropDiaryAppTheme {
                 val window = rememberWindowSize()
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    AppNavigation(windowSize = window)
-                }
+                AppNavigation(windowSize = window)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true, device = Devices.DESKTOP, showSystemUi = true)
+@ExperimentalPagerApi
+@Preview(showBackground = true, device = Devices.PIXEL_2, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     CropDiaryMobileTheme {

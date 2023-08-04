@@ -14,10 +14,12 @@ data class WindowGrid(
     private val columnWidth: Dp,
     private val rowHeight: Dp
 ) {
-    fun width(columns: Double): Dp = ((columnWidth.value * columns) + (minimumSpace.value * (columns - 1))).dp
-    fun height(rows: Double): Dp = ((rowHeight.value * rows) + (rowHeight.value * (rows - 1))).dp
+    fun width(columns: Double): Dp =
+        ((columnWidth.value * columns) + (minimumSpace.value * (columns - 1))).dp
+
+    fun height(rows: Double): Dp = ((rowHeight.value * rows) + (minimumSpace.value * (rows - 1))).dp
     fun width(columns: Int): Dp = ((columnWidth * columns) + (minimumSpace * (columns - 1)))
-    fun height(rows: Int): Dp = ((rowHeight * rows) + (rowHeight * (rows - 1)))
+    fun height(rows: Int): Dp = ((rowHeight * rows) + (minimumSpace * (rows - 1)))
 }
 
 
@@ -35,6 +37,7 @@ fun getWindowGrid(): WindowGrid {
         margin = margin,
         minimumSpace = minimumSpace
     )
+
     val availableHeight = getAvailableHeight(
         windowOrientation = orientation,
         height = height,
@@ -45,7 +48,6 @@ fun getWindowGrid(): WindowGrid {
         windowOrientation = orientation,
         availableWidth = availableWidth
     )
-
     val rowHeight = getRowHeight(
         windowOrientation = orientation,
         availableHeight = availableHeight
@@ -56,6 +58,7 @@ fun getWindowGrid(): WindowGrid {
         columnWidth = columnWidth.dp,
         rowHeight = rowHeight.dp
     )
+
 }
 
 @Composable

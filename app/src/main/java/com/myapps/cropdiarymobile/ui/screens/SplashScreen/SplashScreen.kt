@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
@@ -20,6 +21,7 @@ import com.myapps.cropdiarymobile.core.WindowOrientation
 import com.myapps.cropdiarymobile.ui.components.getWindowGrid
 import com.myapps.cropdiarymobile.ui.navigation.Destinations
 import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
+import com.myapps.cropdiarymobile.ui.theme.SecondAppTypography
 import kotlinx.coroutines.delay
 
 @Composable
@@ -40,8 +42,10 @@ fun SplashViewScreen(navController: NavHostController) {
             painter = painterResource(id = R.drawable.bkg_splash_view),
             modifier = Modifier.fillMaxSize()
         )
+        val constraints = Constraints(windowOrientation)
         ConstraintLayoutSplashScreen(
             windowOrientation = windowOrientation,
+            constraints = constraints,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(grid.margin)
@@ -55,8 +59,10 @@ fun SplashViewScreen(navController: NavHostController) {
             Slogan(
                 orientation = windowOrientation,
                 grid = grid,
+                text = stringResource(id = R.string.slogan),
                 modifier = Modifier
-                    .layoutId("slogan")
+                    .layoutId("slogan"),
+                textStyle = SecondAppTypography.titleLarge
             )
             ProgressIndicator(
                 orientation = windowOrientation,

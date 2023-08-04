@@ -15,12 +15,13 @@ import com.myapps.cropdiarymobile.ui.theme.SecondAppTypography
 internal fun Slogan(
     orientation: WindowOrientation,
     grid: WindowGrid,
+    text: String,
     modifier: Modifier = Modifier,
     textStyle: androidx.compose.ui.text.TextStyle = SecondAppTypography.bodyLarge
 ) {
     val columns = if (orientation == WindowOrientation.Portrait) 7 else 5
     Text(
-        text = stringResource(id = R.string.slogan),
+        text = text,
         modifier = modifier
             .width(grid.width(columns)),
         style = textStyle,

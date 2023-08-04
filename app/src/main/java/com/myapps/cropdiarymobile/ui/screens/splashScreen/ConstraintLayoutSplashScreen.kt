@@ -7,16 +7,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import com.myapps.cropdiarymobile.core.WindowOrientation
 
 @Composable
-fun ConstraintLayoutSplashScreen(
+internal fun ConstraintLayoutSplashScreen(
     windowOrientation: WindowOrientation,
+    constraints: ConstraintSet,
     modifier: Modifier = Modifier,
     content: @Composable BoxWithConstraintsScope.() -> Unit
 ) {
     BoxWithConstraints {
-        val constraints = Constraints(windowOrientation)
         ConstraintLayout(
             constraintSet = constraints,
             modifier = modifier

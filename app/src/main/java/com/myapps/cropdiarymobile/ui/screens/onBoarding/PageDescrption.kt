@@ -1,0 +1,30 @@
+package com.myapps.cropdiarymobile.ui.screens.onBoarding
+
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
+import com.myapps.cropdiarymobile.core.WindowOrientation
+import com.myapps.cropdiarymobile.ui.components.WindowGrid
+
+@Composable
+internal fun PageDescription(
+    text: String,
+    grid: WindowGrid,
+    orientation: WindowOrientation,
+    modifier: Modifier = Modifier,
+    style: TextStyle = TextStyle.Default
+) {
+    val modifierOrientation =
+        if (orientation == WindowOrientation.Portrait) modifier.width(grid.width(7))
+        else modifier.width(grid.width(6))
+
+    Text(
+        modifier = modifierOrientation,
+        text = text,
+        style = style,
+        textAlign = TextAlign.Justify
+    )
+}

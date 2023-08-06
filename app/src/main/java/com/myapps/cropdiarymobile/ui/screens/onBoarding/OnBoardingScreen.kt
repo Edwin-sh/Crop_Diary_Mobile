@@ -103,6 +103,8 @@ fun OnBoardingScreen() {
         FinishButton(
             pagerState = pagerState,
             text = "Finish",
+            grid = grid,
+            orientation = orientation,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .size(

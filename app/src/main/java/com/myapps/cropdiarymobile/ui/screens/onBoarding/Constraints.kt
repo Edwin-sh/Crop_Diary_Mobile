@@ -21,6 +21,27 @@ internal fun constraints(windowOrientation: WindowOrientation, grid: WindowGrid)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
+            constrain(pager) {
+                top.linkTo(
+                    header.bottom,
+                    margin = grid.minimumSpace
+                )
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(indicator.top)
+            }
+            constrain(indicator) {
+                top.linkTo(pager.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(button.top)
+            }
+            constrain(button) {
+                top.linkTo(indicator.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+            }
         }
         else {
             constrain(header) {
@@ -29,31 +50,31 @@ internal fun constraints(windowOrientation: WindowOrientation, grid: WindowGrid)
                 end.linkTo(skip.start)
                 //bottom.linkTo(parent.bottom)
             }
+            constrain(indicator) {
+                top.linkTo(button.top)
+                start.linkTo(parent.start)
+                end.linkTo(button.start)
+                bottom.linkTo(button.bottom)
+            }
+            constrain(button) {
+                top.linkTo(pager.bottom)
+                start.linkTo(indicator.end)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+            }
+            constrain(pager) {
+                top.linkTo(
+                    header.bottom,
+                    margin = grid.minimumSpace
+                )
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(button.top)
+            }
         }
         constrain(skip) {
             top.linkTo(parent.top)
             end.linkTo(parent.end)
-        }
-
-        constrain(pager) {
-            top.linkTo(
-                header.bottom,
-                margin = grid.minimumSpace
-            )
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-            bottom.linkTo(indicator.top)
-        }
-        constrain(indicator) {
-            top.linkTo(pager.bottom)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-            bottom.linkTo(button.top)
-        }
-        constrain(button) {
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-            bottom.linkTo(parent.bottom)
         }
     }
 

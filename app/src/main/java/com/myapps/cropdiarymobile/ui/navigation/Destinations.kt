@@ -5,4 +5,6 @@ sealed class Destinations(
 ) {
     object SplashScreen: Destinations("splashScreen")
     object OnBoardingScreen: Destinations("onBoardingScreen")
+
+    object SignInScreen: Destinations("sinInScreen")
 }

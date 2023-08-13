@@ -9,8 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.myapps.cropdiarymobile.ui.navigation.Destinations.*
-import com.myapps.cropdiarymobile.ui.screens.initial.auth.signIn.SignInScreen
-import com.myapps.cropdiarymobile.ui.screens.initial.onBoarding.OnBoardingScreen
+import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.SignInScreen
+import com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding.OnBoardingScreen
 import com.myapps.cropdiarymobile.ui.screens.splashScreen.SplashViewScreen
 
 val LocalNavController = compositionLocalOf<NavHostController> {

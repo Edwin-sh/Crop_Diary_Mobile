@@ -5,9 +5,9 @@ import com.myapps.cropdiarymobile.core.WindowOrientation
 
 internal fun Constraints(windowOrientation: WindowOrientation): ConstraintSet {
     return ConstraintSet {
-        val logo = createRefFor("logo")
-        val slogan = createRefFor("slogan")
-        val progressIndicator = createRefFor("progressIndicator")
+        val logo = createRefFor(LayoutId.logo)
+        val slogan = createRefFor(LayoutId.slogan)
+        val progressIndicator = createRefFor(LayoutId.progressIndicator)
 
         when (windowOrientation) {
             WindowOrientation.Landscape -> {

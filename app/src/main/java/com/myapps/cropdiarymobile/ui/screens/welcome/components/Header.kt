@@ -1,33 +1,33 @@
-package com.myapps.cropdiarymobile.ui.screens.onBoarding
+package com.myapps.cropdiarymobile.ui.screens.welcome.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.WindowOrientation
+import com.myapps.cropdiarymobile.core.getWindowInformation
 import com.myapps.cropdiarymobile.ui.components.ProgressLine
-import com.myapps.cropdiarymobile.ui.components.WindowGrid
 
 @Composable
 internal fun Header(
-    grid: WindowGrid,
-    orientation: WindowOrientation,
-    textStyle: TextStyle = TextStyle.Default,
     modifier: Modifier = Modifier
 ) {
+    val windowInformation = getWindowInformation()
+    val grid = windowInformation.windowGrid
+    val orientation = windowInformation.windowOrientation
     val modifierOrientation = if (orientation == WindowOrientation.Portrait) modifier.size(
         width = grid.width(6),
         height = grid.height(1)
     ) else modifier.size(
-        width = grid.width(6),
+        width = grid.width(5),
         height = grid.width(1)
     )
 
@@ -38,7 +38,7 @@ internal fun Header(
     ) {
         Text(
             text = stringResource(id = R.string.app_name),
-            style = textStyle
+            style = MaterialTheme.typography.headlineLarge
         )
         ProgressLine(
             progress = 0.3f,

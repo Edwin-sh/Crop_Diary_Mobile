@@ -2,7 +2,7 @@ package com.myapps.cropdiarymobile.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myapps.cropdiarymobile.data.repository.DataStoreRepository
+import com.myapps.cropdiarymobile.domain.preferences.PutOnBoardingStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -10,11 +10,11 @@ import javax.inject.Inject
 
  @HiltViewModel
 class WelcomeViewModel @Inject constructor(
-    private val repository: DataStoreRepository
+    private val putOnBoardingStateUseCase: PutOnBoardingStateUseCase
 ) : ViewModel() {
     fun saveOnBoardingState(completed: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.saveOnBoardingState(completed = completed)
+            putOnBoardingStateUseCase(completed)
         }
     }
 }

@@ -1,8 +1,8 @@
-package com.myapps.cropdiarymobile.ui.screens.onBoarding
+package com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding
 
 import androidx.constraintlayout.compose.ConstraintSet
+import com.myapps.cropdiarymobile.core.WindowGrid
 import com.myapps.cropdiarymobile.core.WindowOrientation
-import com.myapps.cropdiarymobile.ui.components.WindowGrid
 
 internal fun constraints(windowOrientation: WindowOrientation, grid: WindowGrid): ConstraintSet {
     return ConstraintSet {
@@ -42,8 +42,7 @@ internal fun constraints(windowOrientation: WindowOrientation, grid: WindowGrid)
                 end.linkTo(parent.end)
                 bottom.linkTo(parent.bottom)
             }
-        }
-        else {
+        } else {
             constrain(header) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
@@ -69,7 +68,6 @@ internal fun constraints(windowOrientation: WindowOrientation, grid: WindowGrid)
                 )
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-                bottom.linkTo(button.top)
             }
         }
         constrain(skip) {
@@ -104,8 +102,7 @@ internal fun constraintsPager(windowOrientation: WindowOrientation): ConstraintS
                 end.linkTo(parent.end)
                 bottom.linkTo(parent.bottom)
             }
-        }
-        else {
+        } else {
             constrain(image) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)

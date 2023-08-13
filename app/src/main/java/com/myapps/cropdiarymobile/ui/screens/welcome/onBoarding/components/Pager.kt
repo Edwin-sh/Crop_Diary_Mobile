@@ -1,4 +1,4 @@
-package com.myapps.cropdiarymobile.ui.screens.onBoarding
+package com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding.components
 
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,19 +12,21 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.PagerState
 import com.myapps.cropdiarymobile.core.WindowOrientation
-import com.myapps.cropdiarymobile.ui.components.WindowGrid
+import com.myapps.cropdiarymobile.core.getWindowInformation
+import com.myapps.cropdiarymobile.ui.util.OnBoardingPage
 
 @ExperimentalPagerApi
 @Composable
 internal fun Pager(
     pages: List<OnBoardingPage>,
     pagerState: PagerState,
-    grid: WindowGrid,
-    orientation: WindowOrientation,
     constraintSet: ConstraintSet,
     modifier: Modifier = Modifier,
     content: @Composable PagerScope.(page: Int) -> Unit
 ) {
+    val windowInformation = getWindowInformation()
+    val grid = windowInformation.windowGrid
+    val orientation = windowInformation.windowOrientation
     val modifierOrientation =
         if (orientation == WindowOrientation.Portrait) modifier.height(grid.height(8)) else modifier.height(
             grid.height(5)

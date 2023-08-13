@@ -1,4 +1,4 @@
-package com.myapps.cropdiarymobile.ui.screens.onBoarding
+package com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding
 
 internal object LayoutId {
     const val skip = "skipText"

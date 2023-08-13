@@ -1,4 +1,4 @@
-package com.myapps.cropdiarymobile.ui.screens.onBoarding
+package com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
@@ -8,23 +8,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import com.myapps.cropdiarymobile.core.WindowOrientation
-import com.myapps.cropdiarymobile.ui.components.WindowGrid
+import com.myapps.cropdiarymobile.core.getWindowInformation
 
 @Composable
 internal fun PageImage(
     painter: Painter,
-    grid: WindowGrid,
-    orientation: WindowOrientation,
     modifier: Modifier = Modifier
 ) {
+    val windowInformation = getWindowInformation()
+    val grid = windowInformation.windowGrid
+    val orientation = windowInformation.windowOrientation
     val modifierSize = if (orientation == WindowOrientation.Portrait) modifier
         .width(grid.width(6)) else modifier.height(grid.height(5))
-    val escale = if (orientation == WindowOrientation.Portrait) ContentScale.FillWidth else ContentScale.FillHeight
+    val scale =
+        if (orientation == WindowOrientation.Portrait) ContentScale.FillWidth else ContentScale.FillHeight
 
     Image(
         modifier = modifierSize,
         painter = painter,
         contentDescription = "Pager Image",
-        contentScale = escale
+        contentScale = scale
     )
 }

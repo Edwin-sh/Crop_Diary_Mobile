@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_page_one">¡Bienvenido a CropDiary, tu compañero digital para la contabilidad agrícola!</string>
+    <string name="title_page_two">Registra y gestiona tus cultivos de manera sencilla con CropDiary</string>
+    <string name="title_page_three">Simplifica la gestión de tus obreros y tareas agrícolas con CropDiary</string>
+    <string name="title_page_four">Lleva un control completo de tus finanzas agrícolas con CropDiary</string>
+    <string name="description_page_one">Con CropDiary, podrás llevar un control eficiente de tus actividades agrícolas. Regístrate en la aplicación para empezar a optimizar tus operaciones y simplificar tu gestión agrícola</string>
+    <string name="description_page_two">Mantén un seguimiento detallado de tus cultivos al registrar información importante que te permitirá tomar decisiones más informadas para maximizar tu productividad y optimizar tus recursos agrícolas</string>
+    <string name="description_page_three">Con CropDiary, podrás registrar y administrar fácilmente la información de tus obreros o trabajadores agrícolas. Mantén un control eficiente para mantener tu operación agrícola en marcha sin contratiempos</string>
+    <string name="description_page_four">CropDiary te brinda herramientas para gestionar tus gastos, ingresos y transacciones relacionadas con tus cultivos y operaciones agrícolas. Registra tus ventas, clientes y cuentas para mantener un registro financiero completo</string>
+    <string name="skip">Omitir</string>
+    <string name="get_started">Empezar</string>
+</resources>

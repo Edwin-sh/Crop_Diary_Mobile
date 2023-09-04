@@ -10,6 +10,7 @@ data class WindowInformation(
     val windowOrientation: WindowOrientation,
     val windowGrid: WindowGrid
 )
+
 enum class WindowOrientation { Portrait, Landscape }
 data class WindowGrid(
     val minimumSpace: Dp,
@@ -36,7 +37,7 @@ private fun getWindowGrid(): WindowGrid {
     val configuration = LocalConfiguration.current
     val width = configuration.screenWidthDp
     val height = configuration.screenHeightDp
-    val margin = getMargin(windowOrientation = orientation, width = width)
+    val margin = getMargin(windowOrientation = orientation, width = width, height = height)
     val minimumSpace = margin / 3
     val availableWidth = getAvailableWidth(
         windowOrientation = orientation,
@@ -72,11 +73,10 @@ fun getWindowInformation(): WindowInformation {
     return WindowInformation(getWindowOrientation(), getWindowGrid())
 }
 
-@Composable
-private fun getMargin(windowOrientation: WindowOrientation, width: Int) =
-    if (windowOrientation == WindowOrientation.Portrait) (width.div(20)) else (width.div(
-        30
-    ))
+private fun getMargin(windowOrientation: WindowOrientation, width: Int, height: Int): Int {
+    return if (windowOrientation == WindowOrientation.Portrait) (width.div(20))
+    else (height.div(20))
+}
 
 @Composable
 private fun getAvailableWidth(

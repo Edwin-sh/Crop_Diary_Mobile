@@ -13,16 +13,16 @@ import androidx.compose.ui.tooling.preview.Preview
 fun BasicButton(
     onClick: () -> Unit,
     text: String,
-    style: TextStyle = TextStyle.Default
+    modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
         shape = MaterialTheme.shapes.medium,
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
     ) {
         Text(
             text = text,
-            style = style
+            style = MaterialTheme.typography.titleLarge
         )
     }
 }

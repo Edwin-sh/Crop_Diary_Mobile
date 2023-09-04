@@ -1,45 +1,52 @@
 package com.myapps.cropdiarymobile.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
-import com.myapps.cropdiarymobile.ui.theme.color.*
+import com.myapps.cropdiarymobile.ui.theme.color.Black
+import com.myapps.cropdiarymobile.ui.theme.color.BlackDisabled
+import com.myapps.cropdiarymobile.ui.theme.color.BlackHighEmphasis
+import com.myapps.cropdiarymobile.ui.theme.color.BlackMediumEmphasis
+import com.myapps.cropdiarymobile.ui.theme.color.Error
+import com.myapps.cropdiarymobile.ui.theme.color.Primary100
+import com.myapps.cropdiarymobile.ui.theme.color.Primary200
+import com.myapps.cropdiarymobile.ui.theme.color.Primary300
+import com.myapps.cropdiarymobile.ui.theme.color.Primary50
+import com.myapps.cropdiarymobile.ui.theme.color.Primary500
+import com.myapps.cropdiarymobile.ui.theme.color.Primary900
+import com.myapps.cropdiarymobile.ui.theme.color.Secondary300
+import com.myapps.cropdiarymobile.ui.theme.color.Secondary500
+import com.myapps.cropdiarymobile.ui.theme.color.Secondary900
+import com.myapps.cropdiarymobile.ui.theme.color.White
+import com.myapps.cropdiarymobile.ui.theme.color.WhiteDisabled
+import com.myapps.cropdiarymobile.ui.theme.color.WhiteHighEmphasis
+import com.myapps.cropdiarymobile.ui.theme.color.WhiteMediumEmphasis
 
-private val DarkColorScheme = darkColorScheme(
+private val darkColorScheme = lightColorScheme(
     primary = Primary900,
     secondary = Secondary900,
     inversePrimary = Secondary300,
-    tertiary = Primary500,
+    tertiary = Primary100,
     background = Black,
     onBackground = WhiteHighEmphasis,
-    onSurface = WhiteHighEmphasis,
+    onSurface = WhiteMediumEmphasis,
     onPrimary = WhiteHighEmphasis,
     onSecondary = WhiteHighEmphasis,
     error = Error,
-    outline = Primary500,
+    outline = Primary300,
     outlineVariant = Secondary300
 )
 
-private val LightColorScheme = lightColorScheme(
+private val lightColorScheme = lightColorScheme(
     primary = Primary500,
     secondary = Secondary500,
     inversePrimary = Secondary500,
-    tertiary = Secondary900,
+    tertiary = Primary100,
     background = White,
     onBackground = BlackHighEmphasis,
-    onSurface = BlackHighEmphasis,
-    onPrimary = BlackHighEmphasis,
+    onSurface = BlackMediumEmphasis,
+    onPrimary = WhiteHighEmphasis,
     onSecondary = BlackHighEmphasis,
     error = Error,
     outline = Primary500,
@@ -59,27 +66,9 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun CropDiaryMobileTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-        }
-    }
+    val colorScheme = if (darkTheme) darkColorScheme else lightColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,

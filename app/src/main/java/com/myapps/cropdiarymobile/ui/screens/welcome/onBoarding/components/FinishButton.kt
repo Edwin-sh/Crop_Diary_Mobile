@@ -41,8 +41,7 @@ internal fun FinishButton(
         ) {
             BasicButton(
                 onClick = onClick,
-                text = stringResource(R.string.get_started),
-                MaterialTheme.typography.titleMedium
+                text = stringResource(R.string.get_started)
             )
 
         }

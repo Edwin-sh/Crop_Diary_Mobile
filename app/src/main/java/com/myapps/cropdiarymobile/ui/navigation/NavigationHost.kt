@@ -8,10 +8,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.myapps.cropdiarymobile.ui.navigation.Destinations.*
+import com.myapps.cropdiarymobile.ui.navigation.Destinations.MainScreen
+import com.myapps.cropdiarymobile.ui.navigation.Destinations.OnBoardingScreen
+import com.myapps.cropdiarymobile.ui.navigation.Destinations.SignInScreen
+import com.myapps.cropdiarymobile.ui.navigation.Destinations.SplashScreen
+import com.myapps.cropdiarymobile.ui.screens.main.MainScreen
+import com.myapps.cropdiarymobile.ui.screens.splashScreen.SplashViewScreen
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.SignInScreen
 import com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding.OnBoardingScreen
-import com.myapps.cropdiarymobile.ui.screens.splashScreen.SplashViewScreen
 
 val LocalNavController = compositionLocalOf<NavHostController> {
     error("No NavController found")
@@ -31,6 +35,9 @@ fun AppNavigation() {
             }
             composable(SignInScreen.route) {
                 SignInScreen()
+            }
+            composable(MainScreen.route) {
+                MainScreen()
             }
         }
     }

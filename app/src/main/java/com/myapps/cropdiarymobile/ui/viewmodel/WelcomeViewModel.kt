@@ -2,7 +2,7 @@ package com.myapps.cropdiarymobile.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.myapps.cropdiarymobile.domain.preferences.PutOnBoardingStateUseCase
+import com.myapps.cropdiarymobile.domain.preferences.onboarding.PutOnBoardingStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

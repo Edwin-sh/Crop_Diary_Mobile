@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
@@ -17,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.WindowOrientation
 import com.myapps.cropdiarymobile.core.getWindowInformation
+import com.myapps.cropdiarymobile.ui.navigation.Destinations
 import com.myapps.cropdiarymobile.ui.navigation.LocalNavController
 import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.BackGround
 import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.ConstraintLayoutSplashScreen
@@ -26,7 +26,6 @@ import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.Slogan
 import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import com.myapps.cropdiarymobile.ui.theme.SecondAppTypography
 import com.myapps.cropdiarymobile.ui.viewmodel.SplashViewModel
-import kotlinx.coroutines.delay
 
 @Composable
 fun SplashViewScreen(
@@ -34,14 +33,18 @@ fun SplashViewScreen(
 ) {
     val navController = LocalNavController.current
     val grid = getWindowInformation().windowGrid
-    LaunchedEffect(key1 = true) {
-        delay(2000)
-        val screen = splashViewModel.continueDestination.value
-        val isLoading = splashViewModel.isLoading.value
-        if (!isLoading) {
-            navController.popBackStack()
-            navController.navigate(screen)
+    val state = splashViewModel.state
+    val nextScreen = when {
+        !state.isLoading -> {
+            if (state.isComplete) Destinations.SignInScreen.route else Destinations.OnBoardingScreen.route
         }
+        else -> {
+            ""
+        }
+    }
+    if (nextScreen != "") {
+        navController.popBackStack()
+        navController.navigate(nextScreen)
     }
     val windowOrientation =
         if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) WindowOrientation.Portrait else WindowOrientation.Landscape
@@ -75,12 +78,14 @@ fun SplashViewScreen(
                     .layoutId(LayoutId.slogan),
                 textStyle = SecondAppTypography.titleLarge
             )
-            ProgressIndicator(
-                orientation = windowOrientation,
-                grid = grid,
-                modifier = Modifier
-                    .layoutId(LayoutId.progressIndicator)
-            )
+            if (state.isLoading) {
+                ProgressIndicator(
+                    orientation = windowOrientation,
+                    grid = grid,
+                    modifier = Modifier
+                        .layoutId(LayoutId.progressIndicator)
+                )
+            }
         }
 
     }

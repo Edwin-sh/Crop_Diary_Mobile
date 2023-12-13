@@ -6,6 +6,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.myapps.cropdiarymobile.core.util.PreferencesConstants.DATA_STORE_NAME
 import com.myapps.cropdiarymobile.data.repository.PreferencesRepositoryImpl
+import com.myapps.cropdiarymobile.data.source.preferences.AuthPreferences
+import com.myapps.cropdiarymobile.data.source.preferences.AuthPreferencesImpl
 import com.myapps.cropdiarymobile.data.source.preferences.OnBoardingPreferences
 import com.myapps.cropdiarymobile.data.source.preferences.OnBoardingPreferencesImpl
 import com.myapps.cropdiarymobile.domain.preferences.PreferencesRepository
@@ -34,10 +36,13 @@ object PreferencesModule {
     fun provideOnBoardingPreferences(dataStore: DataStore<Preferences>): OnBoardingPreferences =
         OnBoardingPreferencesImpl(dataStore)
 
+    @Provides
+    @Singleton
+    fun provideAuthPreferences(dataStore: DataStore<Preferences>): AuthPreferences = AuthPreferencesImpl(dataStore)
 
     @Provides
     @Singleton
     fun provideDataStoreRepository(
-        onBoardingPreferences: OnBoardingPreferences
-    ): PreferencesRepository = PreferencesRepositoryImpl(onBoardingPreferences)
+        onBoardingPreferences: OnBoardingPreferences, authPreferences: AuthPreferences
+    ): PreferencesRepository = PreferencesRepositoryImpl(onBoardingPreferences, authPreferences)
 }

@@ -1,6 +1,7 @@
-package com.myapps.cropdiarymobile.domain.preferences
+package com.myapps.cropdiarymobile.domain.preferences.onboarding
 
 import android.util.Log
+import com.myapps.cropdiarymobile.domain.preferences.PreferencesRepository
 import javax.inject.Inject
 
 class GetOnBoardingStateUseCase @Inject constructor(

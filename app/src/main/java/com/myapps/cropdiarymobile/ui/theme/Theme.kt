@@ -5,21 +5,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import com.myapps.cropdiarymobile.ui.theme.color.Black
-import com.myapps.cropdiarymobile.ui.theme.color.BlackDisabled
 import com.myapps.cropdiarymobile.ui.theme.color.BlackHighEmphasis
 import com.myapps.cropdiarymobile.ui.theme.color.BlackMediumEmphasis
 import com.myapps.cropdiarymobile.ui.theme.color.Error
 import com.myapps.cropdiarymobile.ui.theme.color.Primary100
-import com.myapps.cropdiarymobile.ui.theme.color.Primary200
 import com.myapps.cropdiarymobile.ui.theme.color.Primary300
-import com.myapps.cropdiarymobile.ui.theme.color.Primary50
 import com.myapps.cropdiarymobile.ui.theme.color.Primary500
 import com.myapps.cropdiarymobile.ui.theme.color.Primary900
 import com.myapps.cropdiarymobile.ui.theme.color.Secondary300
 import com.myapps.cropdiarymobile.ui.theme.color.Secondary500
 import com.myapps.cropdiarymobile.ui.theme.color.Secondary900
 import com.myapps.cropdiarymobile.ui.theme.color.White
-import com.myapps.cropdiarymobile.ui.theme.color.WhiteDisabled
 import com.myapps.cropdiarymobile.ui.theme.color.WhiteHighEmphasis
 import com.myapps.cropdiarymobile.ui.theme.color.WhiteMediumEmphasis
 

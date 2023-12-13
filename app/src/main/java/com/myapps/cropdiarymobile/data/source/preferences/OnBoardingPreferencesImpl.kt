@@ -5,6 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import com.myapps.cropdiarymobile.data.auth.ProviderType
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -23,7 +25,6 @@ class OnBoardingPreferencesImpl @Inject constructor(
         return try {
             val preferencesKey = booleanPreferencesKey(key)
             val preferences = dataStore.data.first()
-            Log.i("On Boarding State ", "Preferences key ${preferences[preferencesKey]}")
             preferences[preferencesKey]
         } catch (e: Exception) {
             e.printStackTrace()

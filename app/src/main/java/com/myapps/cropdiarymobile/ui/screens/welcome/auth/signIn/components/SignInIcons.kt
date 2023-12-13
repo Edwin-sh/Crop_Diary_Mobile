@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.WindowOrientation
 import com.myapps.cropdiarymobile.core.getWindowInformation
@@ -42,9 +43,9 @@ internal fun SignInIcons(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             socialIcons(
-                onFacebookClick = { onFacebookClick },
-                onGoogleClick = { onGoogleClick },
-                onPhoneClick = { onPhoneClick }
+                onFacebookClick = onFacebookClick,
+                onGoogleClick = onGoogleClick,
+                onPhoneClick = onPhoneClick
             )
         }
     } else {
@@ -68,18 +69,18 @@ private fun socialIcons(
 ) {
     SocialMediaIconButton(
         icon = painterResource(id = R.drawable.ic_facebook),
-        label = "Facebook",
-        onClick = { onFacebookClick }
+        label = stringResource(R.string.facebook),
+        onClick = onFacebookClick
     )
     SocialMediaIconButton(
         icon = painterResource(id = R.drawable.ic_google),
-        label = "Google",
-        onClick = { onGoogleClick }
+        label = stringResource(R.string.google),
+        onClick = onGoogleClick
     )
     SocialMediaIconButton(
         icon = painterResource(id = R.drawable.ic_phone),
-        label = "Phone",
-        onClick = { onPhoneClick }
+        label = stringResource(R.string.phone),
+        onClick = onPhoneClick
     )
 }
 
@@ -105,7 +106,7 @@ private fun SocialMediaIconButton(
                     MaterialTheme.shapes.medium
                 )
                 .padding(grid.minimumSpace)
-                .clickable { onClick }
+                .clickable { onClick() }
         ) {
             Image(
                 painter = icon,

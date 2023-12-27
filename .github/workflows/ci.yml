@@ -2,9 +2,9 @@ name: CropDiaryMobile CI
 
 on:
   push:
-    branches: [ "feat" ]
+    branches: [ "feat" "master" ]
   pull_request:
-    branches: [ "feat"]
+    branches: [ "feat" "master"]
 
 jobs:
   build:

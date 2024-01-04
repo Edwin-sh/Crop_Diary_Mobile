@@ -5,8 +5,7 @@ import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.widget.EditText
-import org.apache.commons.validator.*
-import javax.inject.Inject
+import org.apache.commons.validator.routines.EmailValidator
 
 object Utilities {
     private val patron = Regex("^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+\$")
@@ -32,7 +31,7 @@ object Utilities {
 
     fun isValid(email: EditText, activity: Activity): Boolean {
         if (!validateEmail(email.text.toString())) {
-                        return false
+            return false
         }
         return true
     }
@@ -54,7 +53,8 @@ object Utilities {
 
     fun noEmpty(list: List<Pair<EditText, String>>, activity: Activity): Boolean {
         for (value in list) {
-            if (value.first.text.isEmpty()) { return false
+            if (value.first.text.isEmpty()) {
+                return false
             }
         }
         return true

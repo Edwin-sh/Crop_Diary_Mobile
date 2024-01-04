@@ -10,8 +10,6 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
@@ -24,9 +22,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.getWindowInformation
+import com.myapps.cropdiarymobile.core.util.Utilities
+import com.myapps.cropdiarymobile.ui.components.BasicAppDialog
 import com.myapps.cropdiarymobile.ui.components.BasicButton
 import com.myapps.cropdiarymobile.ui.navigation.Destinations
 import com.myapps.cropdiarymobile.ui.navigation.LocalNavController
+import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.ProgressIndicator
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.CreateAccountText
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.ForgotPasswordText
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.LayoutId
@@ -38,12 +39,27 @@ import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.Sign
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.loginConstraints
 import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import com.myapps.cropdiarymobile.ui.viewmodel.AuthViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.ConnectionViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.DialogViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.SignInViewModel
 
 @Composable
-fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
-    val (email, onEmailChange) = rememberSaveable { mutableStateOf("") }
-    val (password, onPasswordChange) = rememberSaveable { mutableStateOf("") }
-    val (showPassword, onShowPasswordChange) = rememberSaveable { mutableStateOf(false) }
+fun SignInScreen(
+    authViewModel: AuthViewModel = hiltViewModel(),
+    signInViewModel: SignInViewModel = hiltViewModel(),
+    dialogViewModel: DialogViewModel = hiltViewModel(),
+    connectionViewModel: ConnectionViewModel  = hiltViewModel()
+) {
+    val authState = authViewModel.state
+    val screenState = signInViewModel.state
+    val dialogState = dialogViewModel.state
+    val connectionState = connectionViewModel.state
+    val email = screenState.email
+    val emailError = screenState.emailError
+    val password = screenState.password
+    val passwordError = screenState.passwordError
+    val isPasswordVisible = screenState.isPasswordVisible
+    val isLoginButtonEnabled = screenState.isLoginButtonEnabled
     val navController = LocalNavController.current
     val windowInformation = getWindowInformation()
     val grid = windowInformation.windowGrid
@@ -51,6 +67,10 @@ fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
     val firebaseUserModel = authViewModel.authSignInModel.observeAsState(null)
     val context = LocalContext.current as Activity
 
+    when (email != "" && password != "" && emailError == "" && passwordError == "") {
+        true -> signInViewModel.setLoginButtonEnabled(true)
+        false -> signInViewModel.setLoginButtonEnabled(false)
+    }
 
     BoxWithConstraints(
         modifier = Modifier
@@ -61,8 +81,16 @@ fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
             Log.i("SignInScreen", "Firebase user signed in")
             navController.popBackStack()
             navController.navigate(Destinations.MainScreen.route)
-        }else{
+        } else {
             Log.i("SignInScreen", "Firebase user signed in failled")
+        }
+        if (authState.isLoading) {
+            ProgressIndicator(
+                orientation = orientation,
+                grid = grid,
+                modifier = Modifier
+                    .layoutId(com.myapps.cropdiarymobile.ui.screens.splashScreen.LayoutId.progressIndicator)
+            )
         }
         ConstraintLayout(
             constraintSet = loginConstraints(
@@ -75,37 +103,43 @@ fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
             SignInIcons(modifier = Modifier.layoutId(LayoutId.social_media_buttons),
                 onFacebookClick = { Log.i("SignInScreen", "Facebook clicked") },
                 onGoogleClick = {
-                    Log.i("SignInScreen", "Google clicked")
-                    authViewModel.signInWithGoogle(context)
+                    if (connectionViewModel.getNetworkState())
+                        authViewModel.signInWithGoogle(context)
                 },
                 onPhoneClick = {}
             )
             SeparatorSingInMethods(modifier = Modifier.layoutId(LayoutId.separator))
             SignInTextField(
                 value = email,
-                onValueChange = { onEmailChange },
+                onValueChange = { signInViewModel.setEmail(it) },
                 label = stringResource(R.string.e_mail),
+                errorMessage = emailError,
                 icon = Default.Email,
                 modifier = Modifier.layoutId(LayoutId.email_input)
             )
             SignInTextField(
                 value = password,
-                onValueChange = { onPasswordChange },
+                onValueChange = { signInViewModel.setPassword(it) },
                 label = stringResource(R.string.password),
+                errorMessage = passwordError,
                 icon = Default.Lock,
-                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 modifier = Modifier.layoutId(LayoutId.password_input)
             )
 
             ShowPasswordOption(
-                showPassword = showPassword,
+                showPassword = isPasswordVisible,
                 modifier = Modifier.layoutId(LayoutId.check_box),
-                onShowPasswordChange = { onShowPasswordChange }
+                onShowPasswordChange = { signInViewModel.showPassword(it) }
             )
 
             BasicButton(
-                onClick = { Log.i("SignInScreen", "Login clicked") },
+                onClick = { if (connectionViewModel.getNetworkState()){
+
+                }
+                                                                      },
                 text = stringResource(R.string.login),
+                enabled = isLoginButtonEnabled,
                 modifier = Modifier.layoutId(LayoutId.login_button)
             )
 
@@ -120,6 +154,7 @@ fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
             )
         }
     }
+    BasicAppDialog()
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL_4)

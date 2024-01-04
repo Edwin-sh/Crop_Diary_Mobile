@@ -15,7 +15,7 @@
     <string name="you_must_repeat_the_password">Debe repetir la contraseña</string>
     <string name="you_must_enter_a_valid_email">Debe ingresar un correo válido</string>
     <string name="the_password_must_be_at_least_8_digits">La contraseña debe tener mínimo 8 dígitos</string>
-    <string name="password_must_have_at_least_one_digit_and_one_uppercase_letter">La contraseña debe tener al menos un dígito y una letra mayúscula</string>
+    <string name="password_must_have_at_least_one_digit_and_one_uppercase_letter">La contraseña debe tener al menos un dígito y una letra mayúscula y sólo se permiten estos símbolos (@!._)</string>
     <string name="an_error_ocurred_authenticating_the_user">Se ha producido un error autenticando al usuario</string>
     <string name="there_is_no_user_with_this_email">No existe usuario con este correo electrónico</string>
     <string name="email_already_in_use">Este correo ya esta en uso</string>

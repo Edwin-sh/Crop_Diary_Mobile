@@ -1,7 +1,11 @@
 package com.myapps.cropdiarymobile.ui.viewmodel
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +22,7 @@ import com.myapps.cropdiarymobile.core.RequestCodes
 import com.myapps.cropdiarymobile.core.TasksHelper
 import com.myapps.cropdiarymobile.data.auth.ProviderType
 import com.myapps.cropdiarymobile.data.model.FirebaseUserModel
+import com.myapps.cropdiarymobile.data.state.AuthState
 import com.myapps.cropdiarymobile.domain.auth.RecoveryPasswordUseCase
 import com.myapps.cropdiarymobile.domain.auth.SignInWithEmailUseCase
 import com.myapps.cropdiarymobile.domain.auth.SignInWithGoogleUseCase
@@ -25,6 +30,7 @@ import com.myapps.cropdiarymobile.domain.auth.SignOutUseCase
 import com.myapps.cropdiarymobile.domain.auth.SignUpWithEmailUseCase
 import com.myapps.cropdiarymobile.domain.preferences.auth.PutSignInProviderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,13 +47,16 @@ class AuthViewModel @Inject constructor(
     private val googleSignInClient: GoogleSignInClient,
     private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
+    var state by mutableStateOf(AuthState())
+        private set
+
     private val _authSignInModel: MutableLiveData<Result<FirebaseUser?>> = MutableLiveData()
-    val authSignInModel:LiveData<Result<FirebaseUser?>> = _authSignInModel
+    val authSignInModel: LiveData<Result<FirebaseUser?>> = _authSignInModel
     val authSignUpModel = MutableLiveData<Result<FirebaseUser?>>()
     val authResultModel = MutableLiveData<Result<Boolean>>()
     val _progressbar = MutableLiveData<Boolean>()
 
-    //private val progressBarHelper = ProgressBarHelper(_progressbar)
+
     fun getGoogleSingInOptions(): GoogleSignInOptions {
         return googleSignInOptions
     }
@@ -72,7 +81,6 @@ class AuthViewModel @Inject constructor(
     }
 
     fun signInWithGoogle(activity: Activity) {
-        //progressBarHelper.isLoading(true)
         val client = GoogleSignIn.getClient(activity, googleSignInOptions)
         activity.startActivityForResult(client.signInIntent, RequestCodes.LOGIN_WITH_GOOGLE)
     }
@@ -85,13 +93,8 @@ class AuthViewModel @Inject constructor(
                     var result = signInWithGoogleUseCase(idToken)
                     if (result.isSuccess) {
                         result.getOrNull()?.let { firebaseUser ->
-                            Log.i(
-                                "AuthViewModel",
-                                "Google sign with firebase success ${firebaseUser.email}"
-                            )
                             putSignInProviderUseCase(ProviderType.GOOGLE)
                             _authSignInModel.postValue(result)
-                            Log.i("AuthViewModel", "Posteando valor")
                         }
                     }
                 }

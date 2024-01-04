@@ -1,7 +1,6 @@
-package com.example.cropdiary.di.auth
+package com.myapps.cropdiarymobile.di.auth
 
-import androidx.core.content.res.TypedArrayUtils.getString
-import com.myapps.cropdiarymobile.R
+import com.example.cropdiary.di.auth.GoogleServerClientIdProvider
 
 class GoogleServerClientIdProviderImpl : GoogleServerClientIdProvider {
     override fun getGoogleServerClientId(): String {

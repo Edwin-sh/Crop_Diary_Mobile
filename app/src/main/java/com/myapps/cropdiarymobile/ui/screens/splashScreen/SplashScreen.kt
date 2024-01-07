@@ -10,8 +10,6 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.WindowOrientation
@@ -23,21 +21,21 @@ import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.ConstraintL
 import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.Logo
 import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.ProgressIndicator
 import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.Slogan
-import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import com.myapps.cropdiarymobile.ui.theme.SecondAppTypography
-import com.myapps.cropdiarymobile.ui.viewmodel.SplashViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.OnBoardingViewModel
 
 @Composable
 fun SplashViewScreen(
-    splashViewModel: SplashViewModel = hiltViewModel()
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
     val grid = getWindowInformation().windowGrid
-    val state = splashViewModel.state
+    val state = onBoardingViewModel.state
     val nextScreen = when {
         !state.isLoading -> {
             if (state.isComplete) Destinations.SignInScreen.route else Destinations.OnBoardingScreen.route
         }
+
         else -> {
             ""
         }
@@ -88,14 +86,6 @@ fun SplashViewScreen(
             }
         }
 
-    }
-}
-
-@Preview(device = Devices.PIXEL_2)
-@Composable
-private fun SplashScreenPreview() {
-    CropDiaryAppTheme {
-        SplashViewScreen()
     }
 }
 

@@ -30,12 +30,12 @@ import com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding.components.Pager
 import com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding.components.TextSkip
 import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import com.myapps.cropdiarymobile.ui.util.OnBoardingPage
-import com.myapps.cropdiarymobile.ui.viewmodel.WelcomeViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.OnBoardingViewModel
 
 @ExperimentalPagerApi
 @Composable
 fun OnBoardingScreen(
-    welcomeViewModel: WelcomeViewModel = hiltViewModel()
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
     val windowInformation = getWindowInformation()
@@ -61,7 +61,7 @@ fun OnBoardingScreen(
     ) {
 
         TextSkip(
-            onClick = { navigateSignInScreen(navController, welcomeViewModel) },
+            onClick = { navigateSignInScreen(navController, onBoardingViewModel) },
             modifier = Modifier.layoutId(LayoutId.skip)
         )
         Header(
@@ -107,16 +107,16 @@ fun OnBoardingScreen(
             modifier = Modifier
                 .layoutId(LayoutId.button)
         ) {
-            navigateSignInScreen(navController, welcomeViewModel)
+            navigateSignInScreen(navController, onBoardingViewModel)
         }
     }
 }
 
 private fun navigateSignInScreen(
     navController: NavHostController,
-    welcomeViewModel: WelcomeViewModel
+    onBoardingViewModel: OnBoardingViewModel
 ) {
-    welcomeViewModel.saveOnBoardingState(completed = true)
+    onBoardingViewModel.saveOnBoardingState(completed = true)
     navController.popBackStack()
     navController.navigate(Destinations.SignInScreen.route)
 }

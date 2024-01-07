@@ -34,8 +34,7 @@ class OnBoardingViewModel @Inject constructor(
             )
             delay(2000)
             val resu = getOnBoardingStateUseCase()
-           Log.i("TAG", "getOnBoardingState: ${resu}")
-            state = state.copy(
+           state = state.copy(
                 isComplete =  resu,
                 isLoading = false
             )

@@ -59,7 +59,7 @@ class OnBoardingViewModelTest {
         // Then
         //assertEquals(initialOnBoardingState, onBoardingViewModel.state) // Verifica que el estado inicial sea el esperado
         //advanceTimeBy(5000) // Avanza el tiempo para simular el retraso
-        //coVerify { getOnBoardingStateUseCase() } // Verifica que se haya llamado al use case
+        coVerify { getOnBoardingStateUseCase() } // Verifica que se haya llamado al use case
 
         //assertEquals(OnBoardingState(isComplete = true, isLoading = false), onBoardingViewModel.state)
     }

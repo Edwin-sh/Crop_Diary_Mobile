@@ -9,12 +9,9 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceTimeBy
-import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -30,37 +27,45 @@ class OnBoardingViewModelTest {
 
     private lateinit var onBoardingViewModel: OnBoardingViewModel
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @get:Rule
     var rule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun onBefore() {
         MockKAnnotations.init(this)
-        Dispatchers.setMain(Dispatchers.Unconfined)
         onBoardingViewModel =
-            OnBoardingViewModel(getOnBoardingStateUseCase, putOnBoardingStateUseCase)
+            OnBoardingViewModel(
+                getOnBoardingStateUseCase,
+                putOnBoardingStateUseCase,
+                testDispatcher
+            )
 
     }
 
     @After
     fun onAfter() {
-        Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test
-    fun `when the view model is created at the first time then get the onBoarding state`() = runTest{
-        // Given
-        val initialOnBoardingState = OnBoardingState(isLoading = true)
-        coEvery { getOnBoardingStateUseCase() } returns true
+    fun `when the view model is created at the first time then get the onBoarding state`() =
+        runTest {
+            // Given
+            val initialOnBoardingState = OnBoardingState(isLoading = true)
+            coEvery { getOnBoardingStateUseCase() } returns true
 
-        // When
-        onBoardingViewModel.getOnBoardingState()
+            // When
+            onBoardingViewModel.getOnBoardingState()
 
-        // Then
-        //assertEquals(initialOnBoardingState, onBoardingViewModel.state) // Verifica que el estado inicial sea el esperado
-        //advanceTimeBy(5000) // Avanza el tiempo para simular el retraso
-        coVerify { getOnBoardingStateUseCase() } // Verifica que se haya llamado al use case
-
-        //assertEquals(OnBoardingState(isComplete = true, isLoading = false), onBoardingViewModel.state)
-    }
+            // Then
+            assertEquals(initialOnBoardingState, onBoardingViewModel.state)
+            testDispatcher.scheduler.advanceUntilIdle()
+            coVerify(exactly = 1) { getOnBoardingStateUseCase() } // Verifica que se haya llamado al use case
+            assertEquals(
+                OnBoardingState(isComplete = true, isLoading = false),
+                onBoardingViewModel.state
+            )
+        }
 }

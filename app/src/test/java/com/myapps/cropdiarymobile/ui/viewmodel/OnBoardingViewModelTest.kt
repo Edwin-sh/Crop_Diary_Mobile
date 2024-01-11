@@ -56,9 +56,6 @@ class OnBoardingViewModelTest {
             val initialOnBoardingState = OnBoardingState(isLoading = true)
             coEvery { getOnBoardingStateUseCase() } returns true
 
-            // When
-            onBoardingViewModel.getOnBoardingState()
-
             // Then
             assertEquals(initialOnBoardingState, onBoardingViewModel.state)
             testDispatcher.scheduler.advanceUntilIdle()

@@ -49,20 +49,50 @@ class OnBoardingViewModelTest {
         testDispatcher.cleanupTestCoroutines()
     }
 
+
     @Test
-    fun `when the view model is created at the first time then get the onBoarding state`() =
+    fun `when the view model is created at the first time then the onBoarding state is loading`() =
         runTest {
             // Given
             val initialOnBoardingState = OnBoardingState(isLoading = true)
-            coEvery { getOnBoardingStateUseCase() } returns true
-
             // Then
             assertEquals(initialOnBoardingState, onBoardingViewModel.state)
             testDispatcher.scheduler.advanceUntilIdle()
-            coVerify(exactly = 1) { getOnBoardingStateUseCase() } // Verifica que se haya llamado al use case
+        }
+
+    @Test
+    fun `when the view model is created at the first time then the get onBoarding state is executed`() =
+        runTest {
+            testDispatcher.scheduler.advanceUntilIdle()
+            coVerify(exactly = 1) { getOnBoardingStateUseCase() }
+        }
+
+    @Test
+    fun `when the get on boarding state use case is executed then the view model state is updated`() =
+        runTest {
+            // Given
+            coEvery { getOnBoardingStateUseCase() } returns true
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            // Then
             assertEquals(
                 OnBoardingState(isComplete = true, isLoading = false),
                 onBoardingViewModel.state
             )
         }
+
+    @Test
+    fun `when the put on boarding state use case is executed then the view model state is updated`() =
+        runTest {
+            // Given
+            coEvery { putOnBoardingStateUseCase(any()) } returns true
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            // Then
+            assertEquals(
+                OnBoardingState(isLoading = false),
+                onBoardingViewModel.state
+            )
+        }
+
 }

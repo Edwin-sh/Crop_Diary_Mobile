@@ -10,7 +10,6 @@ import com.myapps.cropdiarymobile.domain.preferences.onboarding.GetOnBoardingSta
 import com.myapps.cropdiarymobile.domain.preferences.onboarding.PutOnBoardingStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,7 +27,7 @@ class OnBoardingViewModel @Inject constructor(
         getOnBoardingState()
     }
 
-    fun getOnBoardingState() {
+    private fun getOnBoardingState() {
         viewModelScope.launch(dispatcher) {
             state = state.copy(
                 isLoading = true
@@ -41,9 +40,11 @@ class OnBoardingViewModel @Inject constructor(
         }
     }
 
-    fun saveOnBoardingState(completed: Boolean, dispatcher: CoroutineDispatcher = Dispatchers.IO) {
+    fun saveOnBoardingState(completed: Boolean): Boolean {
+        var result = false
         viewModelScope.launch(dispatcher) {
-            putOnBoardingStateUseCase(completed)
+            result = putOnBoardingStateUseCase(completed)
         }
+        return result
     }
 }

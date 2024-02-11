@@ -1,4 +1,4 @@
-package com.myapps.cropdiarymobile.ui.viewmodel
+package com.myapps.cropdiarymobile.ui.viewmodel.screenStates
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -13,7 +13,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(@ApplicationContext private val context: Context) :
+class SignInScreenStateViewModel @Inject constructor(
+    @ApplicationContext private val context: Context
+) :
     ViewModel() {
     var state: SignInScreenState by mutableStateOf(SignInScreenState())
         private set
@@ -41,9 +43,9 @@ class SignInViewModel @Inject constructor(@ApplicationContext private val contex
             setPasswordError(context.getString(R.string.you_must_enter_the_email))
         } else if (password.length < 8) {
             setPasswordError(context.getString(R.string.the_password_must_be_at_least_8_digits))
-        }else if (!Utilities.validatePassword(password)) {
+        } else if (!Utilities.validatePassword(password)) {
             setPasswordError(context.getString(R.string.password_must_have_at_least_one_digit_and_one_uppercase_letter))
-        }else deletePasswordError()
+        } else deletePasswordError()
     }
 
     fun showPassword(show: Boolean) {
@@ -53,6 +55,7 @@ class SignInViewModel @Inject constructor(@ApplicationContext private val contex
     private fun setPasswordError(error: String) {
         state = state.copy(passwordError = error)
     }
+
     private fun deletePasswordError() {
         state = state.copy(passwordError = "")
     }

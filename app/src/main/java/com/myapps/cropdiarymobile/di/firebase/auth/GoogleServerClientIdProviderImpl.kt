@@ -1,4 +1,4 @@
-package com.myapps.cropdiarymobile.di.auth
+package com.myapps.cropdiarymobile.di.firebase.auth
 
 import com.example.cropdiary.di.auth.GoogleServerClientIdProvider
 

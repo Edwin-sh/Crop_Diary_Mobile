@@ -16,14 +16,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.getWindowInformation
-import com.myapps.cropdiarymobile.core.util.Utilities
-import com.myapps.cropdiarymobile.ui.components.BasicAppDialog
 import com.myapps.cropdiarymobile.ui.components.BasicButton
 import com.myapps.cropdiarymobile.ui.navigation.Destinations
 import com.myapps.cropdiarymobile.ui.navigation.LocalNavController
@@ -37,23 +33,18 @@ import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.Show
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.SignInIcons
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.SignInTextField
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.loginConstraints
-import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import com.myapps.cropdiarymobile.ui.viewmodel.AuthViewModel
 import com.myapps.cropdiarymobile.ui.viewmodel.ConnectionViewModel
-import com.myapps.cropdiarymobile.ui.viewmodel.DialogViewModel
-import com.myapps.cropdiarymobile.ui.viewmodel.SignInViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.screenStates.SignInScreenStateViewModel
 
 @Composable
 fun SignInScreen(
     authViewModel: AuthViewModel = hiltViewModel(),
-    signInViewModel: SignInViewModel = hiltViewModel(),
-    dialogViewModel: DialogViewModel = hiltViewModel(),
-    connectionViewModel: ConnectionViewModel  = hiltViewModel()
+    signInScreenStateViewModel: SignInScreenStateViewModel = hiltViewModel(),
+    connectionViewModel: ConnectionViewModel = hiltViewModel()
 ) {
     val authState = authViewModel.state
-    val screenState = signInViewModel.state
-    val dialogState = dialogViewModel.state
-    val connectionState = connectionViewModel.state
+    val screenState = signInScreenStateViewModel.state
     val email = screenState.email
     val emailError = screenState.emailError
     val password = screenState.password
@@ -68,8 +59,8 @@ fun SignInScreen(
     val context = LocalContext.current as Activity
 
     when (email != "" && password != "" && emailError == "" && passwordError == "") {
-        true -> signInViewModel.setLoginButtonEnabled(true)
-        false -> signInViewModel.setLoginButtonEnabled(false)
+        true -> signInScreenStateViewModel.setLoginButtonEnabled(true)
+        false -> signInScreenStateViewModel.setLoginButtonEnabled(false)
     }
 
     BoxWithConstraints(
@@ -103,7 +94,7 @@ fun SignInScreen(
             SignInIcons(modifier = Modifier.layoutId(LayoutId.social_media_buttons),
                 onFacebookClick = { Log.i("SignInScreen", "Facebook clicked") },
                 onGoogleClick = {
-                    if (connectionViewModel.getNetworkState())
+                    if (connectionViewModel.getConnectionState())
                         authViewModel.signInWithGoogle(context)
                 },
                 onPhoneClick = {}
@@ -111,7 +102,7 @@ fun SignInScreen(
             SeparatorSingInMethods(modifier = Modifier.layoutId(LayoutId.separator))
             SignInTextField(
                 value = email,
-                onValueChange = { signInViewModel.setEmail(it) },
+                onValueChange = { signInScreenStateViewModel.setEmail(it) },
                 label = stringResource(R.string.e_mail),
                 errorMessage = emailError,
                 icon = Default.Email,
@@ -119,7 +110,7 @@ fun SignInScreen(
             )
             SignInTextField(
                 value = password,
-                onValueChange = { signInViewModel.setPassword(it) },
+                onValueChange = { signInScreenStateViewModel.setPassword(it) },
                 label = stringResource(R.string.password),
                 errorMessage = passwordError,
                 icon = Default.Lock,
@@ -130,11 +121,11 @@ fun SignInScreen(
             ShowPasswordOption(
                 showPassword = isPasswordVisible,
                 modifier = Modifier.layoutId(LayoutId.check_box),
-                onShowPasswordChange = { signInViewModel.showPassword(it) }
+                onShowPasswordChange = { signInScreenStateViewModel.showPassword(it) }
             )
 
             BasicButton(
-                onClick = { if (connectionViewModel.getNetworkState()){
+                onClick = { if (connectionViewModel.getConnectionState()){
 
                 }
                                                                       },
@@ -154,13 +145,5 @@ fun SignInScreen(
             )
         }
     }
-    BasicAppDialog()
 }
 
-@Preview(showBackground = true, device = Devices.PIXEL_4)
-@Composable
-fun Preview() {
-    CropDiaryAppTheme {
-        SignInScreen()
-    }
-}

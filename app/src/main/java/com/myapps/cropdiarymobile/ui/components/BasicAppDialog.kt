@@ -17,8 +17,15 @@ fun BasicAppDialog(
             text = dialogViewModel.state.message,
             title = dialogViewModel.state.title,
             confirmText = dialogViewModel.state.positiveButtonText,
-            onConfirm = {dialogViewModel.hideDialog()},
-            onDismiss = {}
+            dismissText = dialogViewModel.state.negativeButtonText,
+            onConfirm = {
+                dialogViewModel.state.positiveButtonAction
+                dialogViewModel.hideDialog()
+            },
+            onDismiss = {
+                dialogViewModel.state.negativeButtonAction
+                dialogViewModel.hideDialog()
+            }
         )
     }
 }

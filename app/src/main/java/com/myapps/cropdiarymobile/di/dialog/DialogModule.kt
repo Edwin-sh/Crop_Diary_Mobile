@@ -1,4 +1,4 @@
-package com.myapps.cropdiarymobile.di
+package com.myapps.cropdiarymobile.di.dialog
 
 import android.content.Context
 import com.myapps.cropdiarymobile.data.state.DialogStateData

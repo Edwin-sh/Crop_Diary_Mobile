@@ -12,33 +12,48 @@ class GetConnectionStateUseCase @Inject constructor(
     private val connectionChecker: ConnectionChecker,
     @ApplicationContext private val context: Context
 ) {
-    operator fun invoke():Boolean {
+    operator fun invoke(): Boolean {
         return try {
             if (!connectionChecker.isInternetAvailable()) {
-                dialogViewModel.showErrorDialog(context.getString(R.string.you_do_not_have_an_internet_connection))
+                dialogViewModel.showDialog(
+                    title = dialogViewModel.error,
+                    message = context.getString(R.string.you_do_not_have_an_internet_connection)
+                )
                 false
             } else {
                 val status = connectionChecker.isInternetReachable()
                 if (status.isFailure) {
-                    dialogViewModel.showErrorDialog(status.exceptionOrNull()?.message.toString())
+                    dialogViewModel.showDialog(
+                        title = dialogViewModel.error,
+                        message = status.exceptionOrNull()?.message.toString()
+                    )
                     false
-                }else{
-                    if (!status.getOrNull()!!){
-                        dialogViewModel.showErrorDialog(context.getString(R.string.your_internet_connection_is_unstable_please_try_again))
+                } else {
+                    if (!status.getOrNull()!!) {
+                        dialogViewModel.showDialog(
+                            title = dialogViewModel.error,
+                            message = context.getString(R.string.your_internet_connection_is_unstable_please_try_again)
+                        )
                         false
-                    }else{
+                    } else {
                         val firebaseStatus = connectionChecker.isFirebaseAvailable()
                         if (firebaseStatus.isFailure) {
-                            dialogViewModel.showErrorDialog(firebaseStatus.exceptionOrNull()?.message.toString())
+                            dialogViewModel.showDialog(
+                                title = dialogViewModel.error,
+                                message = firebaseStatus.exceptionOrNull()?.message.toString()
+                            )
                             false
-                        }else{
+                        } else {
                             firebaseStatus.getOrNull()!!
                         }
                     }
                 }
             }
-        }catch (e: Exception){
-            dialogViewModel.showErrorDialog(context.getString(R.string.an_error_occurred_while_verifying_the_internet_connection))
+        } catch (e: Exception) {
+            dialogViewModel.showDialog(
+                title = dialogViewModel.error,
+                message = context.getString(R.string.an_error_occurred_while_verifying_the_internet_connection)
+            )
             false
         }
     }

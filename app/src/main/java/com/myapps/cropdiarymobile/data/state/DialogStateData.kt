@@ -6,5 +6,6 @@ data class DialogStateData(
     val title: String = "",
     val positiveButtonText: String = "",
     val negativeButtonText: String = "",
-    val positiveButtonAction: () -> Unit = {}
+    val positiveButtonAction: () -> Unit = {},
+    val negativeButtonAction: () -> Unit = {}
 )

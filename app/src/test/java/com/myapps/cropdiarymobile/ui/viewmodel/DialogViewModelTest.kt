@@ -7,9 +7,7 @@ import com.myapps.cropdiarymobile.data.state.DialogStateData
 import com.myapps.cropdiarymobile.di.coroutines.MainDispatcher
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.verify
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -66,7 +64,7 @@ class DialogViewModelTest {
     }
 
 /*@Test
-/*fu`when the show dialog fun is called then the showing state is true`() = runTest{
+fun `when the show dialog fun is called then the showing state is true`() = runTest{
     dialogViewModel.showDialog(
         title = "Test title",
         message = "Test message",
@@ -96,7 +94,7 @@ fun `when the show dialog fun is called with custom values then the dialog state
     assert(dialogViewModel.state.positiveButtonAction.invoke() == println("Test"))
     assert(dialogViewModel.state.negativeButtonText == "Test negative button")
     assert(dialogViewModel.state.negativeButtonAction.invoke() == println("Test"))
-}
+}*/
 
 private fun showGenericDialog(){
     dialogViewModel.showDialog(
@@ -107,5 +105,5 @@ private fun showGenericDialog(){
         negativeButtonText = "Test negative button",
         negativeButtonAction = { println("Test") }
     )
-}*/
+}
 }

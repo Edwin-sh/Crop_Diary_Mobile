@@ -55,9 +55,9 @@ class GetConnectionStateUseCaseTest {
 
         //Then
         assert(!result)
-        verify(exactly = 1){ connectionChecker.isInternetAvailable() }
-        verify(exactly = 1) { viewModel.showErrorDialog(any()) }
-        verify(exactly = 0) { connectionChecker.isInternetReachable()}
+        verify(exactly = 1) { connectionChecker.isInternetAvailable() }
+        verify(exactly = 1) { viewModel.showDialog(message = "") }
+        verify(exactly = 0) { connectionChecker.isInternetReachable() }
     }
 
     @Test
@@ -73,7 +73,7 @@ class GetConnectionStateUseCaseTest {
         assert(!result)
         verify(exactly = 1) { connectionChecker.isInternetAvailable() }
         verify(exactly = 1) { connectionChecker.isInternetReachable() }
-        verify(exactly = 1) { viewModel.showErrorDialog(any()) }
+        verify(exactly = 1) { viewModel.showDialog(message = "") }
         verify(exactly = 0) { connectionChecker.isFirebaseAvailable() }
     }
 
@@ -90,7 +90,7 @@ class GetConnectionStateUseCaseTest {
         assert(!result)
         verify(exactly = 1) { connectionChecker.isInternetAvailable() }
         verify(exactly = 1) { connectionChecker.isInternetReachable() }
-        verify(exactly = 1) { viewModel.showErrorDialog(any()) }
+        verify(exactly = 1) { viewModel.showDialog(message = "")}
         verify(exactly = 0) { connectionChecker.isFirebaseAvailable() }
     }
 
@@ -109,7 +109,7 @@ class GetConnectionStateUseCaseTest {
         verify(exactly = 1) { connectionChecker.isInternetAvailable() }
         verify(exactly = 1) { connectionChecker.isInternetReachable() }
         verify(exactly = 1) { connectionChecker.isFirebaseAvailable() }
-        verify(exactly = 1) { viewModel.showErrorDialog(any()) }
+        verify(exactly = 1) { viewModel.showDialog(message = "") }
     }
 
 
@@ -124,7 +124,7 @@ class GetConnectionStateUseCaseTest {
         //Then
         assert(!result)
         verify(exactly = 1) { connectionChecker.isInternetAvailable() }
-        verify(exactly = 1) { viewModel.showErrorDialog(any()) }
+        verify(exactly = 1) { viewModel.showDialog(message = "") }
         verify(exactly = 0) { connectionChecker.isInternetReachable() }
         verify(exactly = 0) { connectionChecker.isFirebaseAvailable() }
     }
@@ -142,7 +142,7 @@ class GetConnectionStateUseCaseTest {
         assert(!result)
         verify(exactly = 1) { connectionChecker.isInternetAvailable() }
         verify(exactly = 1) { connectionChecker.isInternetReachable() }
-        verify(exactly = 1) { viewModel.showErrorDialog(any()) }
+        verify(exactly = 1) { viewModel.showDialog(message = "")}
         verify(exactly = 0) { connectionChecker.isFirebaseAvailable() }
     }
 
@@ -161,6 +161,6 @@ class GetConnectionStateUseCaseTest {
         verify(exactly = 1) { connectionChecker.isInternetAvailable() }
         verify(exactly = 1) { connectionChecker.isInternetReachable() }
         verify(exactly = 1) { connectionChecker.isFirebaseAvailable() }
-        verify(exactly = 1) { viewModel.showErrorDialog(any()) }
+        verify(exactly = 1) { viewModel.showDialog(message = "") }
     }
 }

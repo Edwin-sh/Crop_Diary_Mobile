@@ -10,6 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.myapps.cropdiarymobile.core.RequestCodes
+import com.myapps.cropdiarymobile.ui.components.BasicAppDialog
 import com.myapps.cropdiarymobile.ui.navigation.AppNavigation
 import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import com.myapps.cropdiarymobile.ui.viewmodel.AuthViewModel
@@ -24,10 +25,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             CropDiaryAppTheme {
                 AppNavigation()
+                BasicAppDialog()
             }
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RequestCodes.LOGIN_WITH_GOOGLE) {

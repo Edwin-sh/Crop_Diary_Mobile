@@ -3,6 +3,7 @@ package com.myapps.cropdiarymobile.domain.preferences.onboarding
 import com.myapps.cropdiarymobile.domain.preferences.PreferencesRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -29,6 +30,7 @@ class PutOnBoardingStateUseCaseTest {
         val result = putOnBoardingStateUseCase(true)
 
         //Then
+        coVerify { repository.putOnBoardingState(true) }
         assert(result)
     }
 
@@ -41,7 +43,12 @@ class PutOnBoardingStateUseCaseTest {
         val result = putOnBoardingStateUseCase(true)
 
         //Then
+        coVerify { repository.putOnBoardingState(true) }
         assert(!result)
+
+
     }
+
+
 
 }

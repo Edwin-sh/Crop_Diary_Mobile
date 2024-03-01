@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,22 +30,27 @@ class OnBoardingViewModel @Inject constructor(
     }
 
     private fun getOnBoardingState() {
-        viewModelScope.launch(dispatcher) {
-            state = state.copy(
-                isLoading = true
-            )
-            delay(2000)
-            state = state.copy(
-                isComplete = getOnBoardingStateUseCase(),
-                isLoading = false
-            )
+        viewModelScope.launch{
+            withContext(dispatcher) {
+                state = state.copy(
+                    isLoading = true
+                )
+                delay(2000)
+                state = state.copy(
+                    isComplete = getOnBoardingStateUseCase(),
+                    isLoading = false
+                )
+            }
         }
     }
 
     fun saveOnBoardingState(completed: Boolean): Boolean {
         var result = false
-        viewModelScope.launch(dispatcher) {
-            result = putOnBoardingStateUseCase(completed)
+        viewModelScope.launch {
+            withContext(dispatcher){
+                result = putOnBoardingStateUseCase(completed)
+            }
+
         }
         return result
     }

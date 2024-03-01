@@ -12,21 +12,22 @@ import com.myapps.cropdiarymobile.di.coroutines.MainDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class DialogViewModel @Inject constructor(
-    private val context: Context,
-    private val dialogState: DialogStateData,
+    context: Context,
     @MainDispatcher private val dispatcher: CoroutineDispatcher
 ) :
     ViewModel() {
-    var state: DialogStateData by mutableStateOf(dialogState)
+    var state by mutableStateOf(DialogStateData())
         private set
 
     val error = context.getString(R.string.error)
     val info = context.getString(R.string.info)
     val success = context.getString(R.string.success)
+    val accept = context.getString(R.string.accept)
 
     private fun setData(
         title: String = "",
@@ -45,21 +46,23 @@ class DialogViewModel @Inject constructor(
     fun showDialog(
         title: String = success,
         message: String,
-        positiveButtonText: String = context.getString(R.string.accept),
+        positiveButtonText: String = accept,
         positiveButtonAction: () -> Unit = {},
         negativeButtonText: String = "",
         negativeButtonAction: () -> Unit = {}
     ) {
-        viewModelScope.launch(dispatcher) {
-            setData(
-                title,
-                message,
-                positiveButtonText,
-                positiveButtonAction,
-                negativeButtonText,
-                negativeButtonAction
-            )
-            state = state.copy(isShowing = true)
+        viewModelScope.launch {
+            withContext(dispatcher){
+                setData(
+                    title,
+                    message,
+                    positiveButtonText,
+                    positiveButtonAction,
+                    negativeButtonText,
+                    negativeButtonAction
+                )
+                state = state.copy(isShowing = true)
+            }
         }
     }
 
@@ -98,11 +101,6 @@ class DialogViewModel @Inject constructor(
     }
 
     fun clearDialogData() {
-        state = state.copy(
-            title = dialogState.title,
-            message = dialogState.message,
-            positiveButtonText = dialogState.positiveButtonText,
-            positiveButtonAction = dialogState.positiveButtonAction
-        )
+        state = DialogStateData()
     }
 }

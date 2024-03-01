@@ -25,9 +25,8 @@ object DialogModule {
     @Provides
     fun provideDialogViewModel(
         @ApplicationContext context: Context,
-        dialogStateData: DialogStateData,
         @DefaultDispatcher dispatcher: CoroutineDispatcher
     ): DialogViewModel {
-        return DialogViewModel(context, dialogStateData, dispatcher)
+        return DialogViewModel(context, dispatcher)
     }
 }

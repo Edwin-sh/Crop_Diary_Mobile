@@ -13,7 +13,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInScreenStateViewModel @Inject constructor(
+class LoginScreenStateViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ) :
     ViewModel() {

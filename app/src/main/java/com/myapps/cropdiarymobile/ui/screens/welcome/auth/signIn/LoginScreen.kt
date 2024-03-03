@@ -35,16 +35,16 @@ import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.Sign
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.loginConstraints
 import com.myapps.cropdiarymobile.ui.viewmodel.AuthViewModel
 import com.myapps.cropdiarymobile.ui.viewmodel.ConnectionViewModel
-import com.myapps.cropdiarymobile.ui.viewmodel.screenStates.SignInScreenStateViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.screenStates.LoginScreenStateViewModel
 
 @Composable
-fun SignInScreen(
+fun LoginScreen(
     authViewModel: AuthViewModel = hiltViewModel(),
-    signInScreenStateViewModel: SignInScreenStateViewModel = hiltViewModel(),
+    loginScreenStateViewModel: LoginScreenStateViewModel = hiltViewModel(),
     connectionViewModel: ConnectionViewModel = hiltViewModel()
 ) {
     val authState = authViewModel.state
-    val screenState = signInScreenStateViewModel.state
+    val screenState = loginScreenStateViewModel.state
     val email = screenState.email
     val emailError = screenState.emailError
     val password = screenState.password
@@ -59,8 +59,8 @@ fun SignInScreen(
     val context = LocalContext.current as Activity
 
     when (email != "" && password != "" && emailError == "" && passwordError == "") {
-        true -> signInScreenStateViewModel.setLoginButtonEnabled(true)
-        false -> signInScreenStateViewModel.setLoginButtonEnabled(false)
+        true -> loginScreenStateViewModel.setLoginButtonEnabled(true)
+        false -> loginScreenStateViewModel.setLoginButtonEnabled(false)
     }
 
     BoxWithConstraints(
@@ -102,7 +102,7 @@ fun SignInScreen(
             SeparatorSingInMethods(modifier = Modifier.layoutId(LayoutId.separator))
             SignInTextField(
                 value = email,
-                onValueChange = { signInScreenStateViewModel.setEmail(it) },
+                onValueChange = { loginScreenStateViewModel.setEmail(it) },
                 label = stringResource(R.string.e_mail),
                 errorMessage = emailError,
                 icon = Default.Email,
@@ -110,7 +110,7 @@ fun SignInScreen(
             )
             SignInTextField(
                 value = password,
-                onValueChange = { signInScreenStateViewModel.setPassword(it) },
+                onValueChange = { loginScreenStateViewModel.setPassword(it) },
                 label = stringResource(R.string.password),
                 errorMessage = passwordError,
                 icon = Default.Lock,
@@ -121,7 +121,7 @@ fun SignInScreen(
             ShowPasswordOption(
                 showPassword = isPasswordVisible,
                 modifier = Modifier.layoutId(LayoutId.check_box),
-                onShowPasswordChange = { signInScreenStateViewModel.showPassword(it) }
+                onShowPasswordChange = { loginScreenStateViewModel.showPassword(it) }
             )
 
             BasicButton(

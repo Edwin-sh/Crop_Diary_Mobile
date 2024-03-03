@@ -1,9 +1,12 @@
 package com.myapps.cropdiarymobile.domain.preferences.onboarding
 
+import android.content.Context
 import com.myapps.cropdiarymobile.domain.preferences.PreferencesRepository
+import com.myapps.cropdiarymobile.ui.viewmodel.DialogViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -12,12 +15,18 @@ class GetOnBoardingStateUseCaseTest {
     @RelaxedMockK
     private lateinit var repository: PreferencesRepository
 
+    @RelaxedMockK
+    private lateinit var dialogViewModel: DialogViewModel
+
+    @RelaxedMockK
+    private lateinit var context: Context
+
     lateinit var getOnBoardingStateUseCase: GetOnBoardingStateUseCase
 
     @Before
     fun onBefore() {
         MockKAnnotations.init(this)
-        getOnBoardingStateUseCase = GetOnBoardingStateUseCase(repository)
+        getOnBoardingStateUseCase = GetOnBoardingStateUseCase(repository, dialogViewModel, context)
     }
 
     @Test
@@ -25,11 +34,10 @@ class GetOnBoardingStateUseCaseTest {
         //Given
         coEvery { repository.getOnBoardingState() } returns null
 
-        //When
-        val result = getOnBoardingStateUseCase()
-
-        //Then
-        assert(!result)
+        assert(!getOnBoardingStateUseCase())
+        verify(exactly = 0) {
+            dialogViewModel.showDialog(any(), any())
+        }
     }
 
     @Test
@@ -39,6 +47,9 @@ class GetOnBoardingStateUseCaseTest {
 
         //Then
         assert(getOnBoardingStateUseCase())
+        verify(exactly = 0) {
+            dialogViewModel.showDialog(any(), any())
+        }
     }
 
     @Test
@@ -46,11 +57,11 @@ class GetOnBoardingStateUseCaseTest {
         //Given
         coEvery { repository.getOnBoardingState() } returns false
 
-        //When
-        val result = getOnBoardingStateUseCase()
-
         //Then
-        assert(!result)
+        assert(!getOnBoardingStateUseCase())
+        verify(exactly = 0) {
+            dialogViewModel.showDialog(any(), any())
+        }
     }
 
     @Test
@@ -58,10 +69,10 @@ class GetOnBoardingStateUseCaseTest {
         //Given
         coEvery { repository.getOnBoardingState() } throws Exception()
 
-        //When
-        val result = getOnBoardingStateUseCase()
-
         //Then
-        assert(!result)
+        assert(!getOnBoardingStateUseCase())
+        verify(exactly = 1) {
+            dialogViewModel.showDialog(any(), any())
+        }
     }
 }

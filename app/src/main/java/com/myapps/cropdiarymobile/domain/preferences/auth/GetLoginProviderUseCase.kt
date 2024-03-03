@@ -1,27 +1,27 @@
-package com.myapps.cropdiarymobile.domain.preferences.onboarding
+package com.myapps.cropdiarymobile.domain.preferences.auth
 
 import android.content.Context
 import com.myapps.cropdiarymobile.R
+import com.myapps.cropdiarymobile.data.auth.ProviderType
 import com.myapps.cropdiarymobile.domain.preferences.PreferencesRepository
 import com.myapps.cropdiarymobile.ui.viewmodel.DialogViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class PutOnBoardingStateUseCase @Inject constructor(
+class GetLoginProviderUseCase @Inject constructor(
     private val repository: PreferencesRepository,
     private val dialogViewModel: DialogViewModel,
     @ApplicationContext private val context: Context
 ) {
-    suspend operator fun invoke(value: Boolean): Boolean {
+    suspend operator fun invoke(): ProviderType? {
         return try {
-            repository.putOnBoardingState(value)
-            true
+            repository.getSignInProvider()
         } catch (e: Exception) {
             dialogViewModel.showDialog(
-                title = dialogViewModel.error,
-                message = "${context.getString(R.string.an_error_occurred_saving_your_login_information)}: ${e.message}"
+                dialogViewModel.error,
+                context.getString(R.string.an_error_occurred_while_getting_the_login_provider_please_try_again)
             )
-            false
+            null
         }
     }
 }

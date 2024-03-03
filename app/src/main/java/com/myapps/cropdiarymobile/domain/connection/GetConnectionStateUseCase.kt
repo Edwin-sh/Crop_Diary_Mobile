@@ -1,23 +1,21 @@
 package com.myapps.cropdiarymobile.domain.connection
 
-import android.content.Context
-import com.myapps.cropdiarymobile.R
 import com.myapps.cropdiarymobile.core.util.ConnectionChecker
 import com.myapps.cropdiarymobile.ui.viewmodel.DialogViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class GetConnectionStateUseCase @Inject constructor(
     private val dialogViewModel: DialogViewModel,
-    private val connectionChecker: ConnectionChecker,
-    @ApplicationContext private val context: Context
+    private val connectionChecker: ConnectionChecker
 ) {
+
+
     operator fun invoke(): Boolean {
         return try {
             if (!connectionChecker.isInternetAvailable()) {
                 dialogViewModel.showDialog(
                     title = dialogViewModel.error,
-                    message = context.getString(R.string.you_do_not_have_an_internet_connection)
+                    message = connectionChecker.notInternetConnectionMessage
                 )
                 false
             } else {
@@ -32,7 +30,7 @@ class GetConnectionStateUseCase @Inject constructor(
                     if (!status.getOrNull()!!) {
                         dialogViewModel.showDialog(
                             title = dialogViewModel.error,
-                            message = context.getString(R.string.your_internet_connection_is_unstable_please_try_again)
+                            message = connectionChecker.notInternetReachableMessage
                         )
                         false
                     } else {
@@ -44,7 +42,14 @@ class GetConnectionStateUseCase @Inject constructor(
                             )
                             false
                         } else {
-                            firebaseStatus.getOrNull()!!
+                            if (!firebaseStatus.getOrNull()!!) {
+                                dialogViewModel.showDialog(
+                                    title = dialogViewModel.error,
+                                    message = connectionChecker.notFirebaseConnectionReachable
+                                )
+                                return false
+                            }
+                            true
                         }
                     }
                 }
@@ -52,7 +57,7 @@ class GetConnectionStateUseCase @Inject constructor(
         } catch (e: Exception) {
             dialogViewModel.showDialog(
                 title = dialogViewModel.error,
-                message = context.getString(R.string.an_error_occurred_while_verifying_the_internet_connection)
+                message = connectionChecker.exceptionWhileVerifyingInternetConnectionMessage
             )
             false
         }

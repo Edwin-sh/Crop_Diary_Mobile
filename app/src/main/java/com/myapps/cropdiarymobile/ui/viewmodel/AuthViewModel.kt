@@ -1,7 +1,6 @@
 package com.myapps.cropdiarymobile.ui.viewmodel
 
 import android.app.Activity
-import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,9 +27,8 @@ import com.myapps.cropdiarymobile.domain.auth.SignInWithEmailUseCase
 import com.myapps.cropdiarymobile.domain.auth.SignInWithGoogleUseCase
 import com.myapps.cropdiarymobile.domain.auth.SignOutUseCase
 import com.myapps.cropdiarymobile.domain.auth.SignUpWithEmailUseCase
-import com.myapps.cropdiarymobile.domain.preferences.auth.PutSignInProviderUseCase
+import com.myapps.cropdiarymobile.domain.preferences.auth.PutLoginProviderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,7 +38,7 @@ class AuthViewModel @Inject constructor(
     private val signUpWithEmailUseCase: SignUpWithEmailUseCase,
     private val signInWithGoogleUseCase: SignInWithGoogleUseCase,
     private val recoveryPasswordUseCase: RecoveryPasswordUseCase,
-    private val putSignInProviderUseCase: PutSignInProviderUseCase,
+    private val putLoginProviderUseCase: PutLoginProviderUseCase,
     private val signOutUseCase: SignOutUseCase,
     private val googleSignInOptions: GoogleSignInOptions,
     private val tasksHelper: TasksHelper,
@@ -93,7 +91,7 @@ class AuthViewModel @Inject constructor(
                     var result = signInWithGoogleUseCase(idToken)
                     if (result.isSuccess) {
                         result.getOrNull()?.let { firebaseUser ->
-                            putSignInProviderUseCase(ProviderType.GOOGLE)
+                            putLoginProviderUseCase(ProviderType.GOOGLE)
                             _authSignInModel.postValue(result)
                         }
                     }

@@ -14,7 +14,7 @@ import com.myapps.cropdiarymobile.ui.navigation.Destinations.SignInScreen
 import com.myapps.cropdiarymobile.ui.navigation.Destinations.SplashScreen
 import com.myapps.cropdiarymobile.ui.screens.main.MainScreen
 import com.myapps.cropdiarymobile.ui.screens.splashScreen.SplashViewScreen
-import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.SignInScreen
+import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.LoginScreen
 import com.myapps.cropdiarymobile.ui.screens.welcome.onBoarding.OnBoardingScreen
 
 val LocalNavController = compositionLocalOf<NavHostController> {
@@ -34,7 +34,7 @@ fun AppNavigation() {
                 OnBoardingScreen()
             }
             composable(SignInScreen.route) {
-                SignInScreen()
+                LoginScreen()
             }
             composable(MainScreen.route) {
                 MainScreen()

@@ -18,28 +18,17 @@ class AuthPreferencesImpl @Inject constructor(
         }
     }
 
-    override suspend fun getSignInProvider(key: String): ProviderType? {
-        return try {
-            val preferencesKey = stringPreferencesKey(key)
-            val preferences = dataStore.data.first()
-            ProviderType.valueOf(preferences[preferencesKey] ?: "")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
+    override suspend fun getSignInProvider(key: String): ProviderType {
+        val preferencesKey = stringPreferencesKey(key)
+        val preferences = dataStore.data.first()
+        return ProviderType.valueOf(preferences[preferencesKey] ?: "")
     }
 
-    override suspend fun clearSignInProvider(key: String): Boolean {
-        return try {
-            dataStore.edit { preferences ->
-                val preferencesKey = stringPreferencesKey(key)
-                preferences[preferencesKey] = ""
+    override suspend fun clearSignInProvider(key: String) {
+        dataStore.edit { preferences ->
+            val preferencesKey = stringPreferencesKey(key)
+            preferences[preferencesKey] = ""
 
-            }
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
         }
     }
 }

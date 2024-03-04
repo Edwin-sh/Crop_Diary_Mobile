@@ -10,4 +10,10 @@
     <string name="description_page_one">With CropDiary, you can keep an efficient control of your agricultural activities. Sign up for the app to start optimizing your operations and simplifying your farm management</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
+    <string name="an_error_occurred_while_verifying_the_internet_connection">An error occurred while verifying the internet connection</string>
+    <string name="your_internet_connection_is_unstable_please_try_again">Your internet connection is unstable, please try again</string>
+    <string name="info">Information</string>
+    <string name="the_connection_to_the_firebase_is_unstable_please_try_again">The connection to the firebase is unstable, please try again</string>
+    <string name="an_error_occurred_while_verifying_the_firebase_connection_please_try_again">An error occurred while verifying the firebase connection, please try again</string>
+    <string name="an_error_occurred_obtaining_the_onboarding_state">An error ocurred obtaining the onboarding state</string>
 </resources>

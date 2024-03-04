@@ -1,6 +1,5 @@
 package com.myapps.cropdiarymobile.data.repository
 
-import android.util.Log
 import com.myapps.cropdiarymobile.core.util.PreferencesConstants.ON_BOARDING_STATE
 import com.myapps.cropdiarymobile.core.util.PreferencesConstants.SIGNIN_PROVIDER
 import com.myapps.cropdiarymobile.data.auth.ProviderType
@@ -26,11 +25,11 @@ class PreferencesRepositoryImpl @Inject constructor(
         return authPreferences.putSignInProvider(SIGNIN_PROVIDER, value)
     }
 
-    override suspend fun getSignInProvider(): ProviderType? {
+    override suspend fun getSignInProvider(): ProviderType {
         return authPreferences.getSignInProvider(SIGNIN_PROVIDER)
     }
 
-    override suspend fun clearSignInProvider(): Boolean {
+    override suspend fun clearSignInProvider() {
         return authPreferences.clearSignInProvider(SIGNIN_PROVIDER)
     }
 }

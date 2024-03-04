@@ -6,6 +6,6 @@ interface PreferencesRepository {
     suspend fun putOnBoardingState(value: Boolean)
     suspend fun getOnBoardingState(): Boolean?
     suspend fun putSignInProvider(value: ProviderType)
-    suspend fun getSignInProvider(): ProviderType?
-    suspend fun clearSignInProvider(): Boolean
+    suspend fun getSignInProvider(): ProviderType
+    suspend fun clearSignInProvider()
 }

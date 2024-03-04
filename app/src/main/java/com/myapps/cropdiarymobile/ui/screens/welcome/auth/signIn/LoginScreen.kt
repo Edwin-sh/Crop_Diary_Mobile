@@ -10,16 +10,12 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.myapps.cropdiarymobile.R
@@ -27,6 +23,7 @@ import com.myapps.cropdiarymobile.core.getWindowInformation
 import com.myapps.cropdiarymobile.ui.components.BasicButton
 import com.myapps.cropdiarymobile.ui.navigation.Destinations
 import com.myapps.cropdiarymobile.ui.navigation.LocalNavController
+import com.myapps.cropdiarymobile.ui.screens.splashScreen.components.ProgressIndicator
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.CreateAccountText
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.ForgotPasswordText
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.LayoutId
@@ -36,14 +33,24 @@ import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.Show
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.SignInIcons
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.SignInTextField
 import com.myapps.cropdiarymobile.ui.screens.welcome.auth.signIn.components.loginConstraints
-import com.myapps.cropdiarymobile.ui.theme.CropDiaryAppTheme
 import com.myapps.cropdiarymobile.ui.viewmodel.AuthViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.ConnectionViewModel
+import com.myapps.cropdiarymobile.ui.viewmodel.screenStates.LoginScreenStateViewModel
 
 @Composable
-fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
-    val (email, onEmailChange) = rememberSaveable { mutableStateOf("") }
-    val (password, onPasswordChange) = rememberSaveable { mutableStateOf("") }
-    val (showPassword, onShowPasswordChange) = rememberSaveable { mutableStateOf(false) }
+fun LoginScreen(
+    authViewModel: AuthViewModel = hiltViewModel(),
+    loginScreenStateViewModel: LoginScreenStateViewModel = hiltViewModel(),
+    connectionViewModel: ConnectionViewModel = hiltViewModel()
+) {
+    val authState = authViewModel.state
+    val screenState = loginScreenStateViewModel.state
+    val email = screenState.email
+    val emailError = screenState.emailError
+    val password = screenState.password
+    val passwordError = screenState.passwordError
+    val isPasswordVisible = screenState.isPasswordVisible
+    val isLoginButtonEnabled = screenState.isLoginButtonEnabled
     val navController = LocalNavController.current
     val windowInformation = getWindowInformation()
     val grid = windowInformation.windowGrid
@@ -51,6 +58,10 @@ fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
     val firebaseUserModel = authViewModel.authSignInModel.observeAsState(null)
     val context = LocalContext.current as Activity
 
+    when (email != "" && password != "" && emailError == "" && passwordError == "") {
+        true -> loginScreenStateViewModel.setLoginButtonEnabled(true)
+        false -> loginScreenStateViewModel.setLoginButtonEnabled(false)
+    }
 
     BoxWithConstraints(
         modifier = Modifier
@@ -61,8 +72,16 @@ fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
             Log.i("SignInScreen", "Firebase user signed in")
             navController.popBackStack()
             navController.navigate(Destinations.MainScreen.route)
-        }else{
+        } else {
             Log.i("SignInScreen", "Firebase user signed in failled")
+        }
+        if (authState.isLoading) {
+            ProgressIndicator(
+                orientation = orientation,
+                grid = grid,
+                modifier = Modifier
+                    .layoutId(com.myapps.cropdiarymobile.ui.screens.splashScreen.LayoutId.progressIndicator)
+            )
         }
         ConstraintLayout(
             constraintSet = loginConstraints(
@@ -75,37 +94,43 @@ fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
             SignInIcons(modifier = Modifier.layoutId(LayoutId.social_media_buttons),
                 onFacebookClick = { Log.i("SignInScreen", "Facebook clicked") },
                 onGoogleClick = {
-                    Log.i("SignInScreen", "Google clicked")
-                    authViewModel.signInWithGoogle(context)
+                    if (connectionViewModel.getConnectionState())
+                        authViewModel.signInWithGoogle(context)
                 },
                 onPhoneClick = {}
             )
             SeparatorSingInMethods(modifier = Modifier.layoutId(LayoutId.separator))
             SignInTextField(
                 value = email,
-                onValueChange = { onEmailChange },
+                onValueChange = { loginScreenStateViewModel.setEmail(it) },
                 label = stringResource(R.string.e_mail),
+                errorMessage = emailError,
                 icon = Default.Email,
                 modifier = Modifier.layoutId(LayoutId.email_input)
             )
             SignInTextField(
                 value = password,
-                onValueChange = { onPasswordChange },
+                onValueChange = { loginScreenStateViewModel.setPassword(it) },
                 label = stringResource(R.string.password),
+                errorMessage = passwordError,
                 icon = Default.Lock,
-                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+                visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 modifier = Modifier.layoutId(LayoutId.password_input)
             )
 
             ShowPasswordOption(
-                showPassword = showPassword,
+                showPassword = isPasswordVisible,
                 modifier = Modifier.layoutId(LayoutId.check_box),
-                onShowPasswordChange = { onShowPasswordChange }
+                onShowPasswordChange = { loginScreenStateViewModel.showPassword(it) }
             )
 
             BasicButton(
-                onClick = { Log.i("SignInScreen", "Login clicked") },
+                onClick = { if (connectionViewModel.getConnectionState()){
+
+                }
+                                                                      },
                 text = stringResource(R.string.login),
+                enabled = isLoginButtonEnabled,
                 modifier = Modifier.layoutId(LayoutId.login_button)
             )
 
@@ -122,10 +147,3 @@ fun SignInScreen(authViewModel: AuthViewModel = hiltViewModel()) {
     }
 }
 
-@Preview(showBackground = true, device = Devices.PIXEL_4)
-@Composable
-fun Preview() {
-    CropDiaryAppTheme {
-        SignInScreen()
-    }
-}

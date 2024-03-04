@@ -13,11 +13,13 @@ import androidx.compose.ui.tooling.preview.Preview
 fun BasicButton(
     onClick: () -> Unit,
     text: String,
+    enabled:  Boolean = true,
     modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
         shape = MaterialTheme.shapes.medium,
+        enabled = enabled,
         modifier = modifier
     ) {
         Text(

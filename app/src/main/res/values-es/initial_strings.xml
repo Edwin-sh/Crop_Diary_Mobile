@@ -10,4 +10,10 @@
     <string name="description_page_four">CropDiary te brinda herramientas para gestionar tus gastos, ingresos y transacciones relacionadas con tus cultivos y operaciones agrícolas. Registra tus ventas, clientes y cuentas para mantener un registro financiero completo</string>
     <string name="skip">Omitir</string>
     <string name="get_started">Empezar</string>
+    <string name="an_error_occurred_while_verifying_the_internet_connection">Ha ocurrido un error verificando la conexión a internet</string>
+    <string name="your_internet_connection_is_unstable_please_try_again">Tu conexión a internet es inestable, por favor intentalo de nuevo</string>
+    <string name="info">Información</string>
+    <string name="the_connection_to_the_firebase_is_unstable_please_try_again">La conexión a Firebase es inestable, inténtalo de nuevo.</string>
+    <string name="an_error_occurred_while_verifying_the_firebase_connection_please_try_again">Se produjo un error al verificar la conexión de Firebase, inténtelo de nuevo</string>
+    <string name="an_error_occurred_obtaining_the_onboarding_state">Se produjo un error al obtener el estado de tutorial inicial</string>
 </resources>

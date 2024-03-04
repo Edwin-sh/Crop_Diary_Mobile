@@ -1,5 +1,6 @@
 package com.myapps.cropdiarymobile.core
 
+import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
@@ -31,6 +32,7 @@ class TasksHelper @Inject constructor() {
                 val account = task.getResult(ApiException::class.java)
                 Result.success(account)
             } catch (ex: ApiException) {
+                Log.i("AuthViewModel", "Error ${ex.localizedMessage}")
                 Result.failure<GoogleSignInAccount>(authException(ex))
             }
         }

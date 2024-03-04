@@ -3,8 +3,14 @@ name: CropDiaryMobile CI
 on:
   push:
     branches: [ "feat", "master" ]
+    paths:
+      - '**/*'          # It will be executed if there are changes anywhere in the project except the tests folder
+      - '!app/src/test/**'  # Will exclude the tests folder from the workflow
+      - '!app/src/androidTest/**'  # Will exclude the instrumentation tests folder from the workflow
+
   pull_request:
     branches: [ "feat", "master"]
+  
 
 jobs:
   build:

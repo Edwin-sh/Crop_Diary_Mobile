@@ -111,9 +111,9 @@ class AuthViewModel @Inject constructor(
     fun recoveryPassword(email: String) {
         //progressBarHelper.isLoading(true)
         viewModelScope.launch {
-            var result: Result<Boolean> = recoveryPasswordUseCase(email)
+            //var result: Result<Boolean> = recoveryPasswordUseCase(email)
             //progressBarHelper.isLoading(false)
-            authResultModel.postValue(result)
+           // authResultModel.postValue(result)
         }
     }
 

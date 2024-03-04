@@ -1,11 +1,10 @@
 name: Android Testing CI
 on:
   push:
-    branches:
-      - '*'
+    branches: [ "feat", "master" ]
     paths:
       - 'app/src/test/**'          # It will be executed only if there are changes in the tests folder
-      - 'app/src/androidTest/**'   # SIt will be executed only if there are changes in the instrumentation tests folder
+      - 'app/src/androidTest/**'   # It will be executed only if there are changes in the instrumentation tests folder
 
 jobs:
   test:

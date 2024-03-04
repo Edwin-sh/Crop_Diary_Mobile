@@ -24,7 +24,7 @@ class ClearLoginProviderUseCaseTest {
     @RelaxedMockK
     private lateinit var context: Context
 
-    private lateinit var clearLoginProviderUseCase: ClearLoginProviderUseCase
+    lateinit var clearLoginProviderUseCase: ClearLoginProviderUseCase
 
     @Before
     fun setUp() {

@@ -29,7 +29,7 @@ class PreferencesRepositoryImpl @Inject constructor(
         return authPreferences.getSignInProvider(SIGNIN_PROVIDER)
     }
 
-    override suspend fun clearSignInProvider(): Boolean {
+    override suspend fun clearSignInProvider() {
         return authPreferences.clearSignInProvider(SIGNIN_PROVIDER)
     }
 }

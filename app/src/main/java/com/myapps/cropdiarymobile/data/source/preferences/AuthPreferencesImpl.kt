@@ -24,17 +24,11 @@ class AuthPreferencesImpl @Inject constructor(
         return ProviderType.valueOf(preferences[preferencesKey] ?: "")
     }
 
-    override suspend fun clearSignInProvider(key: String): Boolean {
-        return try {
-            dataStore.edit { preferences ->
-                val preferencesKey = stringPreferencesKey(key)
-                preferences[preferencesKey] = ""
+    override suspend fun clearSignInProvider(key: String) {
+        dataStore.edit { preferences ->
+            val preferencesKey = stringPreferencesKey(key)
+            preferences[preferencesKey] = ""
 
-            }
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            false
         }
     }
 }

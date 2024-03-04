@@ -28,4 +28,5 @@
     <string name="an_error_occurred_obtaining_the_login_provider">An error occurred obtaining the login provider</string>
     <string name="an_error_occurred_saving_your_login_information">An error occurred saving your login information</string>
     <string name="an_error_occurred_while_getting_the_login_provider_please_try_again">An error occurred while getting the login provider. Please try again</string>
+    <string name="an_error_occurred_while_clearing_the_login_provider_please_try_again">Se produjo un error al eliminar el proveedor de inicio de sesión. Inténtelo de nuevo.</string>
 </resources>

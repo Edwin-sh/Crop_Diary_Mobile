@@ -37,9 +37,8 @@ class PutLoginProviderUseCaseTest {
     fun onAfter() {
         dialogViewModel.hideDialog()
     }
-
     @Test
-    fun `when the singing provider is set then return true`() = runBlocking {
+    fun `when the singing login is set then return true`() = runBlocking {
         //Given
         coEvery { repository.putSignInProvider(any()) } returns Unit
 
@@ -50,7 +49,7 @@ class PutLoginProviderUseCaseTest {
     }
 
     @Test
-    fun `when an error occurs while setting the signing provider then return false`() = runBlocking {
+    fun `when an error occurs while setting the login provider then return false`() = runBlocking {
         //Given
         coEvery { repository.putSignInProvider(any()) } throws Exception()
 
